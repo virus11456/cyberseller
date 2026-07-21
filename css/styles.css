@@ -210,6 +210,22 @@ b { color: #fff; }
   padding: 16px; max-width: 90vw; max-height: 85vh; overflow: auto; }
 .overlay-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 
+/* Phase 1：五術學派邊框 + 五行標記 */
+.card.school-mountain { border-color: #6fcf7f; }
+.card.school-medical { border-color: #4fd6c0; }
+.card.school-fate { border-color: #9d6bd6; }
+.card.school-physiognomy { border-color: #f2a14e; }
+.card.school-divination { border-color: #5aa9e6; }
+.card-el { position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 12px;
+  background: #14121c; border: 2px solid #14121c; }
+.el-tag { font-size: 13px; margin-left: 2px; }
+.el-metal { color: #cdd3da; }
+.el-wood { color: #6fcf7f; }
+.el-water { color: #5aa9e6; }
+.el-fire { color: #e0736d; }
+.el-earth { color: #d0a85c; }
+
 @media (max-width: 640px) {
   .game-title { font-size: 44px; }
   .card { width: 92px; height: 134px; }

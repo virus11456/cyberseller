@@ -37,6 +37,7 @@
       this._cardsPlayedThisTurn = 0;
       this._attacksThisTurn = 0;
       this._skillsThisTurn = 0;
+      this._activeElement = null; // 目前打出卡牌的五行（用於相剋）
       this.extraFirstDraw = 0;
 
       // 玩家實體：hp 直接映射至 G.hp
@@ -63,7 +64,7 @@
       const e = {
         key, def, name: def.name, idx, alive: true,
         hp, maxHp: hp, block: 0, statuses: {}, turns: 0,
-        elite: !!def.elite, boss: !!def.boss,
+        elite: !!def.elite, boss: !!def.boss, element: def.element || null,
       };
       if (def.init) def.init(e, this.rng);
       return e;
@@ -86,7 +87,17 @@
       let dmg = base + this.get(this.player, 'strength');
       if (this.get(this.player, 'weak') > 0) dmg = Math.floor(dmg * 0.75);
       if (target && this.get(target, 'vulnerable') > 0) dmg = Math.floor(dmg * 1.5);
+      // 五行相剋：卡牌五行 vs 敵人五行
+      if (this._activeElement && target && target.element && SPIRE.elementMultiplier) {
+        dmg = Math.floor(dmg * SPIRE.elementMultiplier(this._activeElement, target.element));
+      }
       return Math.max(0, dmg);
+    }
+    // 五行相剋倍率（UI 顯示用；>1 表示剋）
+    elementFactor(inst, target) {
+      const el = SPIRE.CARDS[inst.key] && SPIRE.CARDS[inst.key].element;
+      if (!el || !target || !target.element || !SPIRE.elementMultiplier) return 1;
+      return SPIRE.elementMultiplier(el, target.element);
     }
     enemyDamageCalc(self, base) {
       let dmg = base + this.get(self, 'strength');
@@ -242,8 +253,10 @@
       this.energy -= Math.max(0, cost);
       // 從手牌移除
       this.hand.splice(hi, 1);
-      // 執行效果
+      // 執行效果（設定五行以套用相剋）
+      this._activeElement = def.element || null;
       if (def.onPlay) def.onPlay(this, v, target);
+      this._activeElement = null;
       // 統計
       this._cardsPlayedThisTurn++;
       if (def.type === 'attack') {
