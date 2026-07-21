@@ -227,6 +227,20 @@ b { color: #fff; }
 .el-fire { color: #e0736d; }
 .el-earth { color: #d0a85c; }
 
+/* 五行像素圖（有美術時取代 emoji）*/
+.el-img { width: 20px; height: 20px; vertical-align: -4px; image-rendering: pixelated; }
+.card-el-img { position: absolute; top: -10px; right: -10px; width: 30px; height: 30px;
+  image-rendering: pixelated; filter: drop-shadow(0 1px 2px #000); }
+
+/* 敘事畫面 */
+.story-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+.story-box { max-width: 640px; width: 100%; background: linear-gradient(#211d30, #14121c);
+  border: 1px solid var(--line); border-radius: 14px; padding: 30px 34px; box-shadow: 0 0 40px #0008; text-align: center; }
+.story-title { font-size: 28px; color: var(--gold); letter-spacing: 3px; margin-bottom: 6px; }
+.story-speaker { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+.story-body { text-align: left; line-height: 1.9; color: #e8e4f0; font-size: 16px; }
+.story-body p { margin: 10px 0; }
+
 @media (max-width: 640px) {
   .game-title { font-size: 44px; }
   .card { width: 92px; height: 134px; }

@@ -17,6 +17,10 @@
     return CLASH[atk][def] != null ? CLASH[atk][def] : 1;
   };
 
+  // ---- 已就緒的五行像素圖（有檔案時填 1，UI 會用圖取代 emoji）----
+  // 檔案位置：assets/art/elements/<key>.png
+  SPIRE.ELEMENT_ART = { /* metal:1, wood:1, water:1, fire:1, earth:1 */ };
+
   // ---- 五行外觀 ----
   SPIRE.ELEMENT_META = {
     metal: { zh: '金', icon: '⚙' },
