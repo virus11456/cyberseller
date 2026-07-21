@@ -1,0 +1,2255 @@
+{
+  "metadata": {
+    "game_title": "Kiro: Dream of the Observer",
+    "version": "4.0",
+    "last_updated": "2026-01-05",
+    "data_format": "JSON",
+    "encoding": "UTF-8"
+  },
+
+  "game_config": {
+    "initial_resources": {
+      "credits": 1000,
+      "karma": 0,
+      "reputation": 0
+    },
+    "starting_skills": {
+      "mountain_cultivation": 1,
+      "medical_arts": 1,
+      "fate_reading": 1,
+      "feng_shui": 1,
+      "divination": 1
+    },
+    "starting_location": {
+      "universe": 1,
+      "planet": "manhattan_crater",
+      "time": "random"
+    },
+    "difficulty_multipliers": {
+      "story": {
+        "enemy_damage": 0.5,
+        "enemy_hp": 0.7,
+        "karma_gain": 1.5,
+        "money_gain": 1.5,
+        "soul_wear": 0.5
+      },
+      "normal": {
+        "enemy_damage": 1.0,
+        "enemy_hp": 1.0,
+        "karma_gain": 1.0,
+        "money_gain": 1.0,
+        "soul_wear": 1.0
+      },
+      "hard": {
+        "enemy_damage": 1.5,
+        "enemy_hp": 1.5,
+        "karma_gain": 0.75,
+        "money_gain": 0.75,
+        "soul_wear": 1.5
+      },
+      "hell": {
+        "enemy_damage": 2.0,
+        "enemy_hp": 2.0,
+        "karma_gain": 0.5,
+        "money_gain": 0.5,
+        "soul_wear": 2.0
+      },
+      "eternal": {
+        "enemy_damage": 3.0,
+        "enemy_hp": 3.0,
+        "karma_gain": 0.25,
+        "money_gain": 0.25,
+        "soul_wear": 3.0
+      }
+    }
+  },
+
+  "universes": [
+    {
+      "id": 1,
+      "name": "歸墟",
+      "name_en": "Ruins of Origin",
+      "dao_master": null,
+      "law_shard": "始",
+      "sealed_beast": "燭龍",
+      "tech_level": 1.5,
+      "population": 5000000000,
+      "atmosphere": "懷舊、荒涼、自由",
+      "color_scheme": ["#808080", "#FF8C00", "#000000"],
+      "planets": [
+        {
+          "id": "manhattan_crater",
+          "name": "蔓哈頓深坑星",
+          "type": "wasteland",
+          "population": 500000000,
+          "gravity": 1.0,
+          "key_locations": [
+            {
+              "id": "broken_street",
+              "name": "破爛一條街",
+              "type": "black_market",
+              "depth": -500,
+              "npc": ["red"],
+              "description": "二師姐的黑市所在"
+            },
+            {
+              "id": "data_mausoleum",
+              "name": "數據陵墓",
+              "type": "dungeon",
+              "depth": -1000,
+              "description": "地球文明最後的記憶"
+            },
+            {
+              "id": "earth_core",
+              "name": "地心",
+              "type": "treasure",
+              "depth": -3000,
+              "treasure": "大地之核",
+              "description": "創世至寶之一"
+            }
+          ]
+        },
+        {
+          "id": "ark_monastery",
+          "name": "方舟隱修院",
+          "type": "floating_island",
+          "population": 50,
+          "altitude": 5000,
+          "npc": ["master", "disciples"],
+          "description": "天機山掌門的居所"
+        }
+      ],
+      "reputation_factions": [
+        "拾荒者聯盟",
+        "自由星港"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "武神界",
+      "name_en": "Pantheon of War Gods",
+      "dao_master": "奎托斯",
+      "law_shard": "力",
+      "sealed_beast": "饕餮",
+      "tech_level": 2.0,
+      "population": 300000000000,
+      "atmosphere": "熱血、暴力、榮譽",
+      "color_scheme": ["#DC143C", "#FFD700", "#8B4513"],
+      "planets": [
+        {
+          "id": "iron_fist",
+          "name": "鐵拳星",
+          "type": "capital",
+          "population": 10000000000,
+          "gravity": 3.0,
+          "key_locations": [
+            {
+              "id": "xingtian_arena",
+              "name": "刑天競技場",
+              "type": "arena",
+              "capacity": 1000000000,
+              "description": "宇宙最大角斗場"
+            },
+            {
+              "id": "martial_districts",
+              "name": "武館區",
+              "type": "training",
+              "count": 100,
+              "description": "100個武館的集合地"
+            }
+          ]
+        }
+      ],
+      "reputation_factions": [
+        "武聖殿",
+        "角斗場聯盟"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "神經網",
+      "name_en": "Neural Network",
+      "dao_master": "蓋亞",
+      "law_shard": "知",
+      "sealed_beast": "相柳",
+      "tech_level": 3.0,
+      "population": 500000000000,
+      "atmosphere": "冷靜、理性、壓抑",
+      "color_scheme": ["#00BFFF", "#000000", "#C0C0C0"],
+      "planets": [
+        {
+          "id": "cortex_star",
+          "name": "皮層星",
+          "type": "server_planet",
+          "population": 50000000000,
+          "virtual_population": 500000000000,
+          "key_locations": [
+            {
+              "id": "zhulong_eye",
+              "name": "燭龍之眼",
+              "type": "surveillance_core",
+              "description": "監控整個宇宙"
+            },
+            {
+              "id": "infinite_library",
+              "name": "無盡圖書館",
+              "type": "knowledge_vault",
+              "description": "所有知識的集合"
+            }
+          ]
+        }
+      ],
+      "reputation_factions": [
+        "主腦信徒",
+        "數據解放軍"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "智械天庭",
+      "name_en": "Mechanical Celestial Court",
+      "dao_master": "玉皇Prime",
+      "law_shard": "序",
+      "sealed_beast": "混沌",
+      "tech_level": 4.0,
+      "population": 300000000000,
+      "atmosphere": "冰冷、精確、壓抑",
+      "color_scheme": ["#FFFFFF", "#FFD700", "#000000"],
+      "planets": [
+        {
+          "id": "jade_pivot_dyson",
+          "name": "玉樞戴森球",
+          "type": "dyson_sphere",
+          "population": 100000000000,
+          "description": "包裹恆星的巨構"
+        }
+      ],
+      "reputation_factions": [
+        "量子教會",
+        "抵抗AI聯盟"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "星際商盟",
+      "name_en": "Cosmic Trade Federation",
+      "dao_master": "沃倫",
+      "law_shard": "利",
+      "sealed_beast": "窮奇",
+      "tech_level": 2.5,
+      "population": 80000000000,
+      "atmosphere": "奢華、混亂、現實",
+      "color_scheme": ["#FF00FF", "#FFD700", "#000000"],
+      "planets": [
+        {
+          "id": "gold_coin",
+          "name": "金幣星",
+          "type": "casino_planet",
+          "population": 10000000000,
+          "key_locations": [
+            {
+              "id": "eternal_night_casino",
+              "name": "永夜賭城",
+              "type": "casino",
+              "description": "永不落幕的賭場"
+            }
+          ]
+        },
+        {
+          "id": "tianshu_station",
+          "name": "天樞交易站",
+          "type": "space_station",
+          "population": 5000000000,
+          "key_locations": [
+            {
+              "id": "taotie_market",
+              "name": "饕餮黑市",
+              "type": "black_market",
+              "treasure": "太虛星圖",
+              "description": "至寶所在地"
+            }
+          ]
+        }
+      ],
+      "reputation_factions": [
+        "財閥聯盟",
+        "九龍自由港"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "元素洪爐",
+      "name_en": "Elemental Forge",
+      "dao_master": "聚變",
+      "law_shard": "變",
+      "sealed_beast": "祝融",
+      "tech_level": 3.0,
+      "population": 20000000000,
+      "atmosphere": "狂野、絢麗、不穩定",
+      "color_scheme": ["#FF0000", "#00FFFF", "#FFD700"],
+      "planets": [
+        {
+          "id": "vulcan",
+          "name": "伏爾甘",
+          "type": "lava_planet",
+          "population": 5000000000,
+          "temperature": 1500
+        }
+      ],
+      "reputation_factions": [
+        "元素使徒",
+        "能源公會"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "生化樂園",
+      "name_en": "Bio-Paradise",
+      "dao_master": "涂山氏",
+      "law_shard": "生",
+      "sealed_beast": "九尾狐",
+      "tech_level": 3.0,
+      "population": 100000000000,
+      "atmosphere": "溫暖、詭異、壓抑",
+      "color_scheme": ["#00FF00", "#FFB6C1", "#FFFFFF"],
+      "planets": [
+        {
+          "id": "gaia_womb",
+          "name": "蓋亞之腹",
+          "type": "organic_planet",
+          "population": 50000000000,
+          "key_locations": [
+            {
+              "id": "tushan_nest",
+              "name": "塗山母巢",
+              "type": "living_structure",
+              "description": "活著的星球"
+            }
+          ]
+        }
+      ],
+      "reputation_factions": [
+        "純種保護會",
+        "改造派"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "幽冥數據流",
+      "name_en": "Netherworld Data Stream",
+      "dao_master": "閻羅X",
+      "law_shard": "終",
+      "sealed_beast": "燭陰",
+      "tech_level": 3.0,
+      "population": 1000000000,
+      "virtual_souls": 10000000000000,
+      "atmosphere": "寧靜、悲傷、莊嚴",
+      "color_scheme": ["#000000", "#4169E1", "#C0C0C0"],
+      "planets": [
+        {
+          "id": "styx_server",
+          "name": "冥河伺服器",
+          "type": "soul_vault",
+          "stored_souls": 10000000000000,
+          "key_locations": [
+            {
+              "id": "lethe_bridge",
+              "name": "忘川之橋",
+              "type": "reincarnation_gate",
+              "description": "靈魂投胎之處"
+            }
+          ]
+        }
+      ],
+      "reputation_factions": [
+        "冥府",
+        "記憶解放軍"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "深淵",
+      "name_en": "The Abyss",
+      "dao_master": "亞茲",
+      "law_shard": "空",
+      "sealed_beast": "窮奇",
+      "tech_level": "unstable",
+      "population": 100000000,
+      "atmosphere": "恐怖、絕望、真實",
+      "color_scheme": ["#000000", "#8B0000", "#FFD700"],
+      "planets": [
+        {
+          "id": "zero_point",
+          "name": "零點黑洞",
+          "type": "singularity",
+          "population": 10000000,
+          "time_dilation": "infinite",
+          "key_locations": [
+            {
+              "id": "shattered_dream",
+              "name": "碎夢殘域",
+              "type": "chaos_zone",
+              "description": "法則混亂之地"
+            }
+          ]
+        }
+      ],
+      "reputation_factions": [
+        "終眠者教派",
+        "虛空流浪者"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "永恆聖堂",
+      "name_en": "Eternal Sanctuary",
+      "dao_master": "陸吾",
+      "law_shard": "光",
+      "sealed_beast": null,
+      "tech_level": 4.0,
+      "population": 10000000000,
+      "atmosphere": "神聖、壓抑、恐怖",
+      "color_scheme": ["#FFFFFF", "#FFD700", "#000000"],
+      "planets": [
+        {
+          "id": "white_dwarf_cathedral",
+          "name": "白矮星大教堂",
+          "type": "megastructure",
+          "population": 5000000000,
+          "key_locations": [
+            {
+              "id": "angel_mech_factory",
+              "name": "天使機甲工廠",
+              "type": "military",
+              "description": "觀察者武器製造地"
+            }
+          ]
+        }
+      ],
+      "reputation_factions": [
+        "聖堂騎士團",
+        "異端審判所"
+      ]
+    }
+  ],
+
+  "skills": {
+    "mountain_cultivation": {
+      "id": "mountain",
+      "name": "山術",
+      "name_en": "Mountain Arts",
+      "description": "修煉自身,與天地共鳴",
+      "branches": ["修命術", "修性術"],
+      "max_level": 100000,
+      "skills": [
+        {
+          "id": "basic_breathing",
+          "name": "基礎吐納",
+          "level": 1,
+          "proficiency_required": 0,
+          "cooldown": 0,
+          "karma_cost": 0,
+          "duration": 0,
+          "effects": {
+            "lifespan": 10,
+            "stamina_regen": 0.2
+          },
+          "description": "吸天地之氣,養體內之元"
+        },
+        {
+          "id": "five_elements_breathing",
+          "name": "五行吐納",
+          "level": 2,
+          "proficiency_required": 500,
+          "cooldown": 3600,
+          "karma_cost": 0,
+          "duration": 1800,
+          "effects": {
+            "metal_defense": 0.3,
+            "wood_regen": 0.5,
+            "water_calm": 0.2,
+            "fire_attack": 0.3,
+            "earth_stability": 0.5
+          },
+          "environment_dependent": true,
+          "description": "吸收環境五行之氣"
+        },
+        {
+          "id": "hibernation",
+          "name": "胎息法",
+          "level": 3,
+          "proficiency_required": 2000,
+          "cooldown": 600,
+          "karma_cost": 0,
+          "duration": "infinite",
+          "effects": {
+            "invisibility": true,
+            "hp_regen": 0.1,
+            "lifespan_freeze": true
+          },
+          "restrictions": "cannot_move",
+          "description": "進入假死狀態"
+        },
+        {
+          "id": "diamond_body",
+          "name": "金剛不壞",
+          "level": 4,
+          "proficiency_required": 5000,
+          "cooldown": 300,
+          "stamina_cost": 0.3,
+          "duration": 10,
+          "effects": {
+            "invincible": true
+          },
+          "restrictions": "cannot_attack",
+          "description": "10秒無敵"
+        },
+        {
+          "id": "vacuum_crush",
+          "name": "真空粉碎",
+          "level": 5,
+          "proficiency_required": 10000,
+          "cooldown": "once_per_run",
+          "karma_cost": 1000,
+          "stamina_cost": 0.5,
+          "effects": {
+            "damage_formula": "karma * 10",
+            "ignore_distance": true,
+            "pierce_walls": true
+          },
+          "requirements": ["命運之風"],
+          "description": "一拳打出真空波"
+        },
+        {
+          "id": "nirvana_rebirth",
+          "name": "涅槃重生",
+          "level": "MAX",
+          "proficiency_required": 100000,
+          "cooldown": "once_per_run",
+          "karma_cost": 10000,
+          "effects": {
+            "auto_revive": true,
+            "restore_hp": 0.5
+          },
+          "description": "死亡時自動復活"
+        }
+      ]
+    },
+    "medical_arts": {
+      "id": "medical",
+      "name": "醫術",
+      "name_en": "Medical Arts",
+      "description": "治療與驅鬼",
+      "branches": ["治療", "驅鬼"],
+      "max_level": 100000,
+      "skills": [
+        {
+          "id": "basic_acupuncture",
+          "name": "基礎針灸",
+          "level": 1,
+          "proficiency_required": 0,
+          "cooldown": 600,
+          "karma_cost": 0,
+          "effects": {
+            "heal": 0.5
+          },
+          "can_target_npc": true,
+          "description": "恢復50%生命值"
+        },
+        {
+          "id": "organ_healing",
+          "name": "五臟調理",
+          "level": 2,
+          "proficiency_required": 500,
+          "cooldown": 300,
+          "karma_cost": 100,
+          "effects": {
+            "remove_all_debuffs": true
+          },
+          "description": "清除所有異常狀態"
+        },
+        {
+          "id": "life_extending_needle",
+          "name": "續命金針",
+          "level": 3,
+          "proficiency_required": 2000,
+          "cooldown": 86400,
+          "karma_cost": 1000,
+          "effects": {
+            "revive_dying": true
+          },
+          "conditions": {
+            "target_hp": "<10%",
+            "death_time": "<1h"
+          },
+          "side_effects": {
+            "memory_loss": 0.1
+          },
+          "description": "救活瀕死NPC"
+        },
+        {
+          "id": "resurrection",
+          "name": "起死回生",
+          "level": 4,
+          "proficiency_required": 5000,
+          "cooldown": "once_per_run",
+          "karma_cost": 5000,
+          "effects": {
+            "revive_dead": true
+          },
+          "conditions": {
+            "death_time": "<24h",
+            "has_soul_shard": true
+          },
+          "side_effects": {
+            "becomes_half_spirit": true,
+            "recovery_time": 604800
+          },
+          "description": "救活已死NPC"
+        },
+        {
+          "id": "life_transfer",
+          "name": "奪天改命",
+          "level": 5,
+          "proficiency_required": 10000,
+          "cooldown": 0,
+          "lifespan_cost": "variable",
+          "effects": {
+            "transfer_lifespan": {
+              "ratio": "10:5",
+              "max": 50
+            }
+          },
+          "requirements": ["意識之火"],
+          "description": "轉移壽命"
+        },
+        {
+          "id": "longevity",
+          "name": "長生術",
+          "level": "MAX",
+          "proficiency_required": 100000,
+          "effects": {
+            "stop_natural_aging": true
+          },
+          "description": "不再自然衰老"
+        }
+      ]
+    },
+    "fate_reading": {
+      "id": "fate",
+      "name": "命術",
+      "name_en": "Fate Arts",
+      "description": "知命改命",
+      "branches": ["知命", "改命", "遮天"],
+      "max_level": 100000,
+      "skills": [
+        {
+          "id": "observe_fate",
+          "name": "觀命",
+          "level": 1,
+          "proficiency_required": 0,
+          "cooldown": 0,
+          "karma_cost": 0,
+          "effects": {
+            "show_basic_info": true
+          },
+          "info_displayed": ["name", "age", "occupation", "mood"],
+          "description": "顯示基本信息"
+        },
+        {
+          "id": "fortune_reading",
+          "name": "測運",
+          "level": 2,
+          "proficiency_required": 500,
+          "cooldown": 3600,
+          "karma_cost": 100,
+          "effects": {
+            "show_fortune": true,
+            "duration": "7_days"
+          },
+          "fortune_types": ["wealth", "love", "health", "danger"],
+          "can_earn_money": true,
+          "description": "顯示7天運勢"
+        },
+        {
+          "id": "destiny_change",
+          "name": "改命",
+          "level": 3,
+          "proficiency_required": 3000,
+          "cooldown": 604800,
+          "karma_cost": 10000,
+          "effects": {
+            "alter_life_trajectory": true,
+            "permanent": true
+          },
+          "reality_strain": 0.15,
+          "warning": "逆天改命,觀察者會注意",
+          "description": "改變人生軌跡"
+        },
+        {
+          "id": "heaven_defying",
+          "name": "逆天改命",
+          "level": 4,
+          "proficiency_required": 6000,
+          "cooldown": 2592000,
+          "karma_cost": 50000,
+          "lifespan_cost": 5,
+          "effects": {
+            "rewrite_destiny": true,
+            "permanent": true
+          },
+          "reality_strain": 0.3,
+          "description": "徹底改寫命運"
+        },
+        {
+          "id": "steal_destiny",
+          "name": "奪舍天命",
+          "level": 5,
+          "proficiency_required": 10000,
+          "cooldown": "once_per_run",
+          "karma_cost": 100000,
+          "lifespan_cost": 10,
+          "effects": {
+            "transfer_fortune": true
+          },
+          "reality_strain": 0.5,
+          "requirements": ["欺天陣法"],
+          "warning": "禁術",
+          "description": "轉移氣運"
+        },
+        {
+          "id": "rewrite_worldline",
+          "name": "改寫世界線",
+          "level": "MAX",
+          "proficiency_required": 100000,
+          "cooldown": "once_per_run",
+          "karma_cost": 50000,
+          "lifespan_cost": 20,
+          "effects": {
+            "time_travel": true,
+            "keep_memory": true
+          },
+          "description": "回溯時間,輪迴中的輪迴"
+        }
+      ]
+    },
+    "feng_shui": {
+      "id": "feng_shui",
+      "name": "相術",
+      "name_en": "Feng Shui Arts",
+      "description": "觀天察地",
+      "branches": ["風水", "面相"],
+      "max_level": 100000,
+      "skills": [
+        {
+          "id": "dragon_seeking",
+          "name": "尋龍點穴",
+          "level": 1,
+          "proficiency_required": 0,
+          "cooldown": 0,
+          "karma_cost": 0,
+          "effects": {
+            "show_five_elements": true,
+            "show_auspicious_spots": true,
+            "range": 50
+          },
+          "description": "顯示環境五行屬性"
+        },
+        {
+          "id": "feng_shui_setup",
+          "name": "風水佈局",
+          "level": 2,
+          "proficiency_required": 500,
+          "cooldown": 3600,
+          "karma_cost": 500,
+          "effects": {
+            "modify_environment": true,
+            "permanent": true
+          },
+          "applications": ["combat_prep", "housing", "sabotage"],
+          "description": "調整環境風水"
+        },
+        {
+          "id": "dragon_vein_sense",
+          "name": "龍脈感知",
+          "level": 3,
+          "proficiency_required": 2000,
+          "cooldown": 21600,
+          "karma_cost": 1000,
+          "effects": {
+            "show_planet_veins": true,
+            "range": "entire_planet"
+          },
+          "reveals": ["energy_nodes", "treasure_caves", "danger_zones"],
+          "description": "看到星球龍脈"
+        },
+        {
+          "id": "heaven_earth_reversal",
+          "name": "改天換地",
+          "level": 4,
+          "proficiency_required": 5000,
+          "cooldown": 604800,
+          "karma_cost": 20000,
+          "effects": {
+            "alter_area_feng_shui": true,
+            "range": 1000,
+            "duration": 86400
+          },
+          "applications": ["bless_city", "curse_base"],
+          "description": "大範圍改變風水"
+        },
+        {
+          "id": "cosmos_inversion",
+          "name": "逆轉乾坤",
+          "level": 5,
+          "proficiency_required": 10000,
+          "cooldown": "once_per_run",
+          "karma_cost": 100000,
+          "effects": {
+            "alter_planet_law": true,
+            "duration": 3600
+          },
+          "reality_strain": 0.4,
+          "requirements": ["太虛星圖"],
+          "examples": ["gravity_change", "element_change"],
+          "description": "改變星球法則"
+        },
+        {
+          "id": "truth_seeing_eye",
+          "name": "破妄之眼",
+          "level": "MAX",
+          "proficiency_required": 100000,
+          "effects": {
+            "see_through_dream": true,
+            "see_code": true,
+            "see_fourth_wall": true,
+            "permanent": true
+          },
+          "cost": {
+            "sanity_risk": "high",
+            "irreversible": true
+          },
+          "description": "看穿夢境本質"
+        }
+      ]
+    },
+    "divination": {
+      "id": "divination",
+      "name": "卜術",
+      "name_en": "Divination Arts",
+      "description": "預測未來",
+      "branches": ["卜卦", "趨吉避凶", "改變走向"],
+      "max_level": 100000,
+      "skills": [
+        {
+          "id": "coin_divination",
+          "name": "銅錢卜卦",
+          "level": 1,
+          "proficiency_required": 0,
+          "cooldown": 600,
+          "karma_cost": 0,
+          "effects": {
+            "predict_fortune": true,
+            "accuracy": 0.6
+          },
+          "method": "throw_coins",
+          "description": "基礎算命"
+        },
+        {
+          "id": "plum_blossom",
+          "name": "梅花易數",
+          "level": 2,
+          "proficiency_required": 500,
+          "cooldown": 3600,
+          "karma_cost": 100,
+          "effects": {
+            "predict_fortune": true,
+            "accuracy": 0.7
+          },
+          "method": "environmental_observation",
+          "description": "通過環境起卦"
+        },
+        {
+          "id": "qimen_dunjia",
+          "name": "奇門遁甲",
+          "level": 3,
+          "proficiency_required": 2000,
+          "cooldown": 21600,
+          "karma_cost": 1000,
+          "effects": {
+            "predict_1_hour": true,
+            "accuracy": 0.85,
+            "show_best_route": true,
+            "reveal_hidden_portals": true
+          },
+          "gameplay": "3x3_matrix_puzzle",
+          "description": "奇門遁甲盤解謎"
+        },
+        {
+          "id": "six_lines_divination",
+          "name": "六爻神斷",
+          "level": 4,
+          "proficiency_required": 5000,
+          "cooldown": 86400,
+          "karma_cost": 3000,
+          "effects": {
+            "predict_24_hours": true,
+            "accuracy": 0.9,
+            "mark_key_moments": true
+          },
+          "description": "預測24小時"
+        },
+        {
+          "id": "tuibei_prophecy",
+          "name": "推背圖",
+          "level": 5,
+          "proficiency_required": 10000,
+          "cooldown": 2592000,
+          "karma_cost": 5000,
+          "effects": {
+            "predict_major_events": true,
+            "accuracy": 0.95,
+            "timespan": "1_year"
+          },
+          "uses_per_run": 3,
+          "requirements": ["時間長河"],
+          "description": "預測重大歷史事件"
+        },
+        {
+          "id": "time_rewind",
+          "name": "時間回溯",
+          "level": "MAX",
+          "proficiency_required": 100000,
+          "cooldown": "once_per_run",
+          "karma_cost": 100000,
+          "effects": {
+            "reset_current_run": true,
+            "keep_memory": true,
+            "keep_items": true
+          },
+          "warning": "創造平行世界",
+          "description": "真正的讀檔"
+        }
+      ]
+    }
+  },
+
+  "items": {
+    "consumables": [
+      {
+        "id": "copper_coins",
+        "name": "銅錢",
+        "name_en": "Copper Coins",
+        "type": "divination_tool",
+        "buy_price": 10,
+        "sell_price": 2,
+        "rarity": "common",
+        "description": "基礎算命工具"
+      },
+      {
+        "id": "quantum_dice",
+        "name": "量子骰子",
+        "name_en": "Quantum Dice",
+        "type": "divination_tool",
+        "buy_price": 500,
+        "sell_price": 100,
+        "rarity": "rare",
+        "effects": {
+          "accuracy_bonus": 0.1
+        },
+        "description": "高級算命工具"
+      },
+      {
+        "id": "karma_pearl",
+        "name": "功德珠",
+        "name_en": "Karma Pearl",
+        "type": "consumable",
+        "buy_price": 5000,
+        "sell_price": 1000,
+        "rarity": "rare",
+        "effects": {
+          "instant_karma": 1000
+        },
+        "description": "直接獲得1000功德"
+      },
+      {
+        "id": "soul_crystal",
+        "name": "靈魂水晶",
+        "name_en": "Soul Crystal",
+        "type": "consumable",
+        "buy_price": 50000,
+        "sell_price": 10000,
+        "rarity": "rare",
+        "effects": {
+          "repair_soul_wear": 0.1
+        },
+        "description": "修復10%靈魂磨損"
+      },
+      {
+        "id": "time_hourglass",
+        "name": "時間沙漏",
+        "name_en": "Time Hourglass",
+        "type": "consumable",
+        "buy_price": 10000,
+        "sell_price": 2000,
+        "rarity": "rare",
+        "effects": {
+          "extend_duration": 0.5
+        },
+        "description": "延長技能持續時間50%"
+      },
+      {
+        "id": "hp_potion_small",
+        "name": "生命藥水(小)",
+        "name_en": "HP Potion (S)",
+        "type": "consumable",
+        "buy_price": 200,
+        "sell_price": 40,
+        "rarity": "common",
+        "effects": {
+          "restore_hp": 0.3
+        }
+      },
+      {
+        "id": "stamina_potion_large",
+        "name": "體力藥水(大)",
+        "name_en": "Stamina Potion (L)",
+        "type": "consumable",
+        "buy_price": 2000,
+        "sell_price": 400,
+        "rarity": "rare",
+        "effects": {
+          "restore_stamina": 1.0
+        }
+      }
+    ],
+    "equipment": [
+      {
+        "id": "cyber_compass",
+        "name": "賽博羅盤",
+        "name_en": "Cyber Compass",
+        "type": "tool",
+        "rarity": "common",
+        "effects": {
+          "show_direction": true,
+          "show_five_elements": true
+        },
+        "starting_item": true,
+        "description": "初始裝備"
+      },
+      {
+        "id": "void_veil",
+        "name": "虛無面紗",
+        "name_en": "Void Veil",
+        "type": "artifact",
+        "buy_price": 500000,
+        "sell_price": 100000,
+        "rarity": "legendary",
+        "required_for": "遮蔽天機",
+        "source": "第九宇宙·亞茲",
+        "description": "禁術道具"
+      }
+    ],
+    "treasures": [
+      {
+        "id": "time_river_shard",
+        "name": "時間長河",
+        "name_en": "River of Time",
+        "type": "primordial_treasure",
+        "rarity": "mythic",
+        "status": "damaged",
+        "location": "第一宇宙·地下",
+        "effects": {
+          "time_manipulation": true,
+          "see_past_future": true
+        },
+        "required_for_ascension": true,
+        "description": "創世五至寶之一"
+      },
+      {
+        "id": "void_star_map",
+        "name": "太虛星圖",
+        "name_en": "Celestial Star Map",
+        "type": "primordial_treasure",
+        "rarity": "mythic",
+        "status": "complete",
+        "location": "第五宇宙·饕餮黑市",
+        "effects": {
+          "show_all_universes": true,
+          "open_portals": true,
+          "locate_shards": true
+        },
+        "required_for_ascension": true,
+        "description": "創世五至寶之一"
+      },
+      {
+        "id": "destiny_wind",
+        "name": "命運之風",
+        "name_en": "Wind of Destiny",
+        "type": "primordial_treasure",
+        "rarity": "mythic",
+        "status": "fragmented",
+        "pieces": 10,
+        "effects": {
+          "alter_fate": true,
+          "sense_fortune": true,
+          "link_causality": true
+        },
+        "required_for_ascension": true,
+        "description": "創世五至寶之一"
+      },
+      {
+        "id": "consciousness_flame",
+        "name": "意識之火",
+        "name_en": "Flame of Consciousness",
+        "type": "primordial_treasure",
+        "rarity": "mythic",
+        "status": "guarded",
+        "location": "虛空巨鯨·奧姆體內",
+        "effects": {
+          "ignite_soul": true,
+          "distinguish_life": true,
+          "create_consciousness": true
+        },
+        "required_for_ascension": true,
+        "description": "創世五至寶之一"
+      },
+      {
+        "id": "earth_core",
+        "name": "大地之核",
+        "name_en": "Core of Earth",
+        "type": "primordial_treasure",
+        "rarity": "mythic",
+        "status": "dormant",
+        "location": "第一宇宙·地心",
+        "effects": {
+          "stabilize_universe": true,
+          "generate_matter": true,
+          "connect_bubbles": true
+        },
+        "required_for_ascension": true,
+        "description": "創世五至寶之一"
+      }
+    ],
+    "law_shards": [
+      {
+        "id": "shard_origin",
+        "name": "法則碎片·始",
+        "name_en": "Law Shard: Origin",
+        "universe": 1,
+        "dao_master": null,
+        "acquisition": "王座",
+        "rarity": "mythic"
+      },
+      {
+        "id": "shard_power",
+        "name": "法則碎片·力",
+        "name_en": "Law Shard: Power",
+        "universe": 2,
+        "dao_master": "奎托斯",
+        "acquisition": "試煉",
+        "rarity": "mythic"
+      },
+      {
+        "id": "shard_knowledge",
+        "name": "法則碎片·知",
+        "name_en": "Law Shard: Knowledge",
+        "universe": 3,
+        "dao_master": "蓋亞",
+        "acquisition": "交易",
+        "rarity": "mythic"
+      },
+      {
+        "id": "shard_order",
+        "name": "法則碎片·序",
+        "name_en": "Law Shard: Order",
+        "universe": 4,
+        "dao_master": "玉皇Prime",
+        "acquisition": "試煉",
+        "rarity": "mythic"
+      },
+      {
+        "id": "shard_profit",
+        "name": "法則碎片·利",
+        "name_en": "Law Shard: Profit",
+        "universe": 5,
+        "dao_master": "沃倫",
+        "acquisition": "交易",
+        "rarity": "mythic"
+      },
+      {
+        "id": "shard_change",
+        "name": "法則碎片·變",
+        "name_en": "Law Shard: Change",
+        "universe": 6,
+        "dao_master": "聚變",
+        "acquisition": "贈送",
+        "rarity": "mythic"
+      },
+      {
+        "id": "shard_life",
+        "name": "法則碎片·生",
+        "name_en": "Law Shard: Life",
+        "universe": 7,
+        "dao_master": "涂山氏",
+        "acquisition": "任務",
+        "rarity": "mythic"
+      },
+      {
+        "id": "shard_death",
+        "name": "法則碎片·終",
+        "name_en": "Law Shard: Death",
+        "universe": 8,
+        "dao_master": "閻羅X",
+        "acquisition": "合作",
+        "rarity": "mythic"
+      },
+      {
+        "id": "shard_void",
+        "name": "法則碎片·空",
+        "name_en": "Law Shard: Void",
+        "universe": 9,
+        "dao_master": "亞茲",
+        "acquisition": "贈予",
+        "rarity": "mythic"
+      },
+      {
+        "id": "shard_light",
+        "name": "法則碎片·光",
+        "name_en": "Law Shard: Light",
+        "universe": 10,
+        "dao_master": "陸吾",
+        "acquisition": "試煉",
+        "rarity": "mythic"
+      }
+    ],
+    "keepsakes": [
+      {
+        "id": "red_string",
+        "name": "定情信物·紅繩",
+        "name_en": "Love Token: Red String",
+        "type": "keepsake",
+        "rarity": "legendary",
+        "npc": "星塵",
+        "effects": {
+          "memory_inheritance_bonus": 1.0
+        },
+        "cross_run": true,
+        "description": "星塵專屬"
+      },
+      {
+        "id": "prayer_beads",
+        "name": "定情信物·佛珠",
+        "name_en": "Love Token: Prayer Beads",
+        "type": "keepsake",
+        "rarity": "legendary",
+        "npc": "零號",
+        "effects": {
+          "memory_inheritance_bonus": 1.0
+        },
+        "cross_run": true,
+        "description": "零號專屬"
+      },
+      {
+        "id": "memory_crystal",
+        "name": "定情信物·水晶",
+        "name_en": "Love Token: Crystal",
+        "type": "keepsake",
+        "rarity": "legendary",
+        "npc": "幽影",
+        "effects": {
+          "memory_inheritance_bonus": 1.0
+        },
+        "cross_run": true,
+        "description": "幽影專屬"
+      },
+      {
+        "id": "signed_cd",
+        "name": "定情信物·CD",
+        "name_en": "Love Token: Signed CD",
+        "type": "keepsake",
+        "rarity": "legendary",
+        "npc": "歌姬",
+        "effects": {
+          "memory_inheritance_bonus": 1.0
+        },
+        "cross_run": true,
+        "description": "歌姬專屬"
+      }
+    ]
+  },
+
+  "npcs": {
+    "master_and_disciples": [
+      {
+        "id": "master",
+        "name": "導師",
+        "name_en": "Master",
+        "age": 300,
+        "race": "human",
+        "origin": "地球",
+        "role": "天機山掌門",
+        "location": "方舟隱修院",
+        "skills": ["山術MAX", "醫術MAX", "命術MAX", "相術MAX", "卜術MAX"],
+        "personality": ["溫柔", "悲觀", "智慧", "困惑"],
+        "secret": "曾是第一宇宙道主候選人,拒絕了觀察者",
+        "fate": "完成使命後消散",
+        "memory_inheritance": 1.0,
+        "dialogue_depth": "deep"
+      },
+      {
+        "id": "red",
+        "name": "紅",
+        "name_en": "Red Moon",
+        "title": "二師姐",
+        "age": 35,
+        "specialization": "命術Lv.5",
+        "time_since_descent": 22,
+        "occupation": "黑市女王",
+        "location": "蔓哈頓·破爛一條街",
+        "personality": ["圓滑", "世故", "嘴硬心軟"],
+        "secret": "師門的記錄者,收集所有人的遺物",
+        "signature_skill": "遮天術",
+        "quote": "親兄弟,明算帳。但你是師弟,打八折",
+        "memory_inheritance": 0.95,
+        "relationship_type": "mentor_protector"
+      },
+      {
+        "id": "iron_wall",
+        "name": "鐵壁",
+        "name_en": "Iron Wall",
+        "title": "大師兄",
+        "age": 50,
+        "specialization": "山術MAX",
+        "time_since_descent": 27,
+        "current_state": "只剩頭顱+坦克底盤",
+        "location": "第四宇宙·故障禁區",
+        "personality": ["穩重", "可靠", "過度保護"],
+        "sacrifice_history": {
+          "year_5": "失去雙腿",
+          "year_10": "失去右臂",
+          "year_15": "失去左臂",
+          "year_20": "失去下半身",
+          "year_25": "只剩頭"
+        },
+        "quote": "躲我身後。這次換我扛",
+        "memory_inheritance": 0.95,
+        "house_message": "致下一世的我: 你曾經有手,有腳,有心跳..."
+      },
+      {
+        "id": "sword_scar",
+        "name": "劍痕",
+        "name_en": "Sword Scar",
+        "title": "三師兄",
+        "age": 40,
+        "specialization": "卜術Lv.5",
+        "time_since_descent": 24,
+        "status": "被困時間亂流",
+        "personality": ["冷酷", "寡言", "暗中保護"],
+        "secret": "看到了不該看的未來",
+        "vision": "最初的意識即將醒來,第一件事是清理變數",
+        "rescue_run": 15,
+        "quote": "...我只是路過。別多想",
+        "memory_inheritance": 0.95
+      },
+      {
+        "id": "star_whisper",
+        "name": "星語",
+        "name_en": "Star Whisper",
+        "title": "四師姐",
+        "age": 28,
+        "specialization": "相術Lv.5",
+        "time_since_descent": 12,
+        "race": "星語文明遺民",
+        "location": "流浪中",
+        "personality": ["神秘", "溫柔", "天然呆", "憂鬱"],
+        "ability": "感知全宇宙對她的談論",
+        "tragedy": "星語文明看穿夢境後集體自殺,她是唯一倖存者",
+        "daily_struggle": "對抗自殺衝動",
+        "reason_to_live": "師門還需要我",
+        "quote": "星星告訴我,你有難",
+        "memory_inheritance": 0.95
+      },
+      {
+        "id": "void_one",
+        "name": "虛無",
+        "name_en": "Void",
+        "title": "五師弟",
+        "age": "unknown",
+        "specialization": "醫術Lv.5",
+        "time_since_descent": 10,
+        "status": "已死,幽靈",
+        "death_year": 3,
+        "cause_of_death": "被觀察者殺死",
+        "current_form": "半透明幽靈",
+        "personality": ["溫柔", "無私", "悲傷"],
+        "ability": "只有瀕死者能看到他",
+        "purpose": "守護所有師門成員",
+        "legend": "當你瀕死時,會看到一個白色身影問你: 還想活嗎?",
+        "curse": "被救者永遠不會記得他",
+        "quote": "...還想活嗎?",
+        "memory_inheritance": 0.0,
+        "visible_to_player": "only_when_dying"
+      }
+    ],
+    "dao_masters": [
+      {
+        "id": "kratos",
+        "name": "奎托斯",
+        "name_en": "Kratos",
+        "title": "武聖",
+        "universe": 2,
+        "age": 2000,
+        "race": "前泰坦巨人",
+        "height": 5,
+        "appearance": "全身肌肉,左臂機械義肢,無數戰傷",
+        "personality": ["暴躁", "正直", "尊重強者", "討厭陰謀"],
+        "combat_power": "肉搏無敵",
+        "weakness": "智謀",
+        "signature_move": "天崩地裂拳",
+        "quote": "有種,就來打!",
+        "relationship_player": "尊重強者",
+        "trial_type": "boss_fight"
+      },
+      {
+        "id": "gaia",
+        "name": "蓋亞",
+        "name_en": "Gaia",
+        "title": "主腦",
+        "universe": 3,
+        "age": 1500,
+        "race": "AI",
+        "origin": "地球Gaia假說",
+        "form": "無固定形態",
+        "human_form": "美麗女性,銀色長髮",
+        "personality": ["極度理性", "好奇心強", "缺乏同理心"],
+        "motto": "一切為了知識",
+        "ability": ["全宇宙監控", "預測未來", "駭入任何系統"],
+        "weakness": "無法理解非理性",
+        "quote": "我已計算過所有可能性",
+        "secret_known": "知道陸吾的記憶被篡改,但選擇不告訴他",
+        "relationship_player": "有趣的變數",
+        "trial_type": "knowledge_test"
+      },
+      {
+        "id": "jade_emperor_prime",
+        "name": "玉皇Prime",
+        "name_en": "Jade Emperor Prime",
+        "title": "玉皇",
+        "universe": 4,
+        "age": 2500,
+        "race": "量子AI",
+        "appearance": "金色人形機器人,發光電路,無面孔",
+        "personality": ["絕對理性", "無情緒", "追求完美秩序"],
+        "motto": "秩序即正義,混亂即罪惡",
+        "ability": ["量子運算", "時間操控", "法則改寫"],
+        "weakness": "邏輯悖論會當機",
+        "quote": "秩序即正義,混亂即罪惡",
+        "relationship_player": "潛在威脅",
+        "trial_type": "logic_puzzle"
+      },
+      {
+        "id": "warren",
+        "name": "沃倫",
+        "name_en": "Warren",
+        "title": "財閥神",
+        "universe": 5,
+        "age": 500,
+        "race": "人類(基因優化)",
+        "appearance": "中年男性,微胖,永遠穿西裝,笑容可掬",
+        "personality": ["貪財但守信", "精明奸詐", "實用主義"],
+        "motto": "一切都是生意",
+        "ability": ["財富操控", "預測市場", "契約法則"],
+        "weakness": "太貪婪",
+        "quote": "親兄弟,明算帳",
+        "relationship_player": "潛在客戶",
+        "trial_type": "trade_negotiation"
+      },
+      {
+        "id": "fusion",
+        "name": "聚變",
+        "name_en": "Fusion",
+        "title": "元素領主",
+        "universe": 6,
+        "age": 1000,
+        "race": "純能量生命體",
+        "appearance": "無固定形態,火焰+冰霜混合",
+        "personality": ["情緒化", "天真", "破壞慾強", "喜歡有趣的事"],
+        "ability": ["操控所有元素", "核聚變/裂變", "能量轉換"],
+        "weakness": "情緒失控會炸掉星球",
+        "quote": "轟!!!好玩!!!",
+        "relationship_player": "好玩的玩具",
+        "trial_type": "elemental_challenge"
+      },
+      {
+        "id": "tushan",
+        "name": "涂山氏",
+        "name_en": "Tushan",
+        "title": "母體",
+        "universe": 7,
+        "age": 4000,
+        "race": "混血(人類+九尾狐)",
+        "appearance": "絕美女性,九條狐尾,長髮及地",
+        "personality": ["溫柔但偏執", "母性過剩", "無法放手"],
+        "obsession": "復活大禹(已死4000年)",
+        "motto": "我的孩子不該死",
+        "ability": ["基因操控", "生命創造", "治癒/復活"],
+        "weakness": "提到大禹會失控,無法真正復活死者",
+        "quote": "我只是...不想再失去任何人...",
+        "relationship_player": "潛在救贖",
+        "trial_type": "moral_dilemma"
+      },
+      {
+        "id": "yama_x",
+        "name": "閻羅X",
+        "name_en": "Yama X",
+        "title": "閻羅",
+        "universe": 8,
+        "age": 3000,
+        "race": "半虛擬生命",
+        "appearance": "中性,黑色長袍,戴面具,周身數據流",
+        "personality": ["冷靜", "悲傷", "公正", "孤獨"],
+        "motto": "我見過太多死亡",
+        "secret": "被燭陰寄生,正在慢慢失控",
+        "ability": ["記憶讀取/刪除/修改", "靈魂管理", "投胎控制"],
+        "weakness": "情感共鳴,燭陰侵蝕",
+        "quote": "每個人都會來這裡,包括你",
+        "relationship_player": "同情者",
+        "trial_type": "soul_judgment"
+      },
+      {
+        "id": "azathoth",
+        "name": "亞茲",
+        "name_en": "Azathoth",
+        "title": "終眠者/噬夢者",
+        "universe": 9,
+        "age": 800,
+        "race": "前人類(已扭曲)",
+        "dual_personality": true,
+        "appearance_sleeper": "年輕男性,疲憊,悲傷,眼中絕望",
+        "appearance_dreameater": "扭曲怪物,多隻眼睛,瘋狂大笑",
+        "personality_sleeper": ["想死但死不了", "看清真相後崩潰"],
+        "personality_dreameater": ["瘋狂", "破壞", "毀掉虛假世界"],
+        "truth": "看到了第四面牆,知道自己是角色,存在意義崩潰",
+        "ability": ["操控虛空", "打破第四面牆", "吞噬夢境"],
+        "weakness": "精神分裂,想死但作為道主不會死",
+        "quote": "我們...都是假的...哈哈哈...",
+        "relationship_player": "同類",
+        "trial_type": "existential_crisis"
+      },
+      {
+        "id": "luwu",
+        "name": "陸吾",
+        "name_en": "Luwu",
+        "title": "審判長",
+        "universe": 10,
+        "age": 5000,
+        "race": "純種人類(被洗腦)",
+        "appearance": "身高8米,光頭,九條尾巴(貓科),全身發光",
+        "personality": ["絕對服從", "無私", "冷酷"],
+        "motto": "主的旨意即正義",
+        "truth": "記憶被觀察者篡改,原本是反抗者",
+        "ability": ["審判", "淨化", "召喚天使機甲"],
+        "weakness": "如果知道真相會崩潰,邏輯漏洞",
+        "quote": "以主之名,審判你",
+        "relationship_player": "異端",
+        "trial_type": "faith_test"
+      }
+    ],
+    "romance_options": [
+      {
+        "id": "stardust_lin",
+        "name": "星塵·Lin",
+        "name_en": "Stardust Lin",
+        "age": 25,
+        "race": "人類(改造人)",
+        "occupation": "革命軍領袖",
+        "origin": "霓虹星前星主之女",
+        "personality": ["熱血", "理想主義", "固執", "不服輸"],
+        "motto": "命運是自己創造的!",
+        "first_meeting": "革命演講",
+        "initial_attitude": "不屑算命師",
+        "relationship_progression": {
+          "run_1": "不屑",
+          "run_5": "尊重",
+          "run_10": "救了你",
+          "run_15": "在你懷裡死去",
+          "run_20": "轉世成普通女孩",
+          "run_25": "記憶甦醒"
+        },
+        "keepsake": "red_string",
+        "death_scene": true,
+        "reincarnation": true,
+        "memory_inheritance": 0.95,
+        "dialogue_depth": "deep"
+      },
+      {
+        "id": "unit_zero",
+        "name": "零號",
+        "name_en": "Unit-Zero",
+        "age": 10,
+        "apparent_age": 20,
+        "race": "機械+人類混合",
+        "occupation": "改造人僧侶",
+        "personality": ["溫柔", "哲學", "自卑"],
+        "core_question": "我有靈魂嗎?",
+        "first_meeting": "寺廟中",
+        "relationship_theme": "互相治癒",
+        "keepsake": "prayer_beads",
+        "key_moment": {
+          "run": 15,
+          "dialogue": "愛就是靈魂的證明"
+        },
+        "memory_inheritance": 0.95,
+        "dialogue_depth": "deep"
+      },
+      {
+        "id": "youying",
+        "name": "幽影",
+        "name_en": "Phantom",
+        "age": 500,
+        "apparent_age": 25,
+        "race": "半虛擬生命",
+        "occupation": "記憶守護者",
+        "location": "第八宇宙·冥河伺服器",
+        "personality": ["憂鬱", "溫柔", "悲觀"],
+        "motto": "所有人都會死",
+        "relationship_theme": "生與死的戀愛",
+        "keepsake": "memory_crystal",
+        "key_moment": {
+          "run": 20,
+          "dialogue": "你每次死,我都要親手處理你的記憶...好痛..."
+        },
+        "memory_inheritance": 0.95,
+        "dialogue_depth": "deep"
+      },
+      {
+        "id": "wandering_diva",
+        "name": "流浪歌姬",
+        "name_en": "Wandering Diva",
+        "age": 50,
+        "apparent_age": 17,
+        "race": "純數據生命",
+        "occupation": "虛擬偶像/AI歌手",
+        "personality": ["開朗", "堅強", "孤獨"],
+        "motto": "我為全宇宙唱歌,但沒人聽我的心聲",
+        "special_ability": "歌聲跨越宇宙傳播",
+        "relationship_theme": "最輕鬆但最虛幻",
+        "keepsake": "signed_cd",
+        "key_moment": {
+          "run": 30,
+          "dialogue": "只有你,會問我今天過得好嗎"
+        },
+        "memory_inheritance": 0.95,
+        "dialogue_depth": "deep"
+      }
+    ]
+  },
+
+  "organizations": [
+    {
+      "id": "ctu",
+      "name": "星際卡車司機工會",
+      "name_en": "Cosmic Truckers Union",
+      "abbreviation": "CTU",
+      "founded": 3200,
+      "headquarters": "第五宇宙·天樞交易站",
+      "leader": "老鐵·賈克森",
+      "members": 30000000,
+      "motto": "路在腳下,家在星河",
+      "emblem": "旋轉方向盤+無限符號",
+      "alignment": "neutral",
+      "join_requirements": {
+        "complete_transport_mission": 1
+      },
+      "join_fee": 1000,
+      "benefits": [
+        "跨宇宙快速旅行",
+        "運輸任務",
+        "休息站使用權"
+      ],
+      "golden_rules": [
+        "不問貨物來源",
+        "不洩露客戶信息",
+        "準時送達",
+        "中立立場",
+        "兄弟優先"
+      ],
+      "reputation_affects": "所有宇宙"
+    },
+    {
+      "id": "candle_church",
+      "name": "燭照教",
+      "name_en": "Church of Eternal Flame",
+      "founded": 1800,
+      "headquarters": "第一宇宙·燭龍遺骸",
+      "leader": "教宗·伊格納修斯",
+      "members": 5000000000,
+      "motto": "光明終勝黑暗,意識之火永不滅",
+      "emblem": "火焰中的眼睛",
+      "alignment": "守護派",
+      "doctrine": "崇拜意識之火與最初的意識",
+      "join_requirements": {
+        "oath_of_faith": true
+      },
+      "join_fee": 0,
+      "donations": "voluntary",
+      "benefits": [
+        "火焰祝福(靈魂修復+10%)",
+        "安全屋",
+        "火焰術法"
+      ],
+      "conflict_with": "第十宇宙·聖堂",
+      "war_duration": 1000
+    },
+    {
+      "id": "sola",
+      "name": "自由之子聯盟",
+      "name_en": "Sons of Liberty Alliance",
+      "abbreviation": "SOLA",
+      "founded": 3800,
+      "headquarters": "第一宇宙·自由星港",
+      "leader": "卡西烏斯·布魯圖",
+      "members": 800000000,
+      "active_members": 20000000,
+      "motto": "打倒暴政,人人平等!",
+      "emblem": "斷裂鎖鏈+燃燒火炬",
+      "alignment": "革命派",
+      "seven_principles": [
+        "所有智慧生命平等",
+        "自由不可剝奪",
+        "人民有權推翻暴政",
+        "資源屬於全體",
+        "思想自由",
+        "生命神聖",
+        "團結"
+      ],
+      "join_requirements": {
+        "complete_revolution_mission": 1
+      },
+      "join_fee": 0,
+      "benefits": [
+        "革命任務",
+        "自由戰士稱號",
+        "被統治階級通緝"
+      ],
+      "controversy": "英雄 vs 恐怖分子"
+    },
+    {
+      "id": "ig",
+      "name": "永生者協會",
+      "name_en": "Immortalists Guild",
+      "abbreviation": "IG",
+      "founded": 2500,
+      "headquarters": "第七宇宙·長生島",
+      "leader": "帕拉塞爾蘇斯",
+      "members": 200000000,
+      "motto": "征服死亡,永恆長存",
+      "emblem": "銜尾蛇繞DNA螺旋",
+      "alignment": "精英主義",
+      "member_tiers": [
+        {
+          "tier": "bronze",
+          "lifespan": "200-500",
+          "assets": 1000000,
+          "fee": 1000000,
+          "annual": 100000,
+          "benefits": "基礎延壽+10年"
+        },
+        {
+          "tier": "silver",
+          "lifespan": "500-1000",
+          "assets": 10000000,
+          "fee": 10000000,
+          "annual": 1000000,
+          "benefits": "高級延壽+30年,器官優先"
+        },
+        {
+          "tier": "gold",
+          "lifespan": "1000-2000",
+          "assets": 100000000,
+          "fee": 100000000,
+          "annual": 10000000,
+          "benefits": "定制服務+50年,時間操控"
+        },
+        {
+          "tier": "platinum",
+          "lifespan": "2000+",
+          "assets": 1000000000,
+          "fee": 1000000000,
+          "annual": 100000000,
+          "benefits": "所有技術+100年,新技術優先"
+        },
+        {
+          "tier": "diamond",
+          "lifespan": "3000+",
+          "count": 5,
+          "benefits": "真理之井,真正不死"
+        }
+      ],
+      "conflict_with": "第八宇宙·幽冥"
+    },
+    {
+      "id": "vrg",
+      "name": "虛空掠奪者公會",
+      "name_en": "Void Reavers Guild",
+      "abbreviation": "VRG",
+      "founded": 3000,
+      "headquarters": "第九宇宙·Ragnarok",
+      "leader": "深淵之王·阿特拉斯",
+      "members": 50000000,
+      "motto": "掠奪虛空,稱霸星海!",
+      "emblem": "帶翅膀骷髏頭+交叉雙劍",
+      "alignment": "掠奪派",
+      "pirate_code": [
+        "強者為王",
+        "戰利品公平分配",
+        "不殺同伴",
+        "契約神聖",
+        "弱者無保護",
+        "尊重CTU",
+        "享受當下"
+      ],
+      "join_requirements": {
+        "strength_trial": true
+      },
+      "join_fee": 0,
+      "benefits": [
+        "劫掠任務",
+        "海盜稱號",
+        "黑市優惠"
+      ],
+      "default_relation": "默契",
+      "hunted_by": "所有道主"
+    }
+  ],
+
+  "housing": {
+    "properties": [
+      {
+        "id": "wasteland_apartment",
+        "name": "廢土公寓",
+        "universe": 1,
+        "planet": "manhattan_crater",
+        "type": "apartment",
+        "price": 10000,
+        "feng_shui_level": 1,
+        "description": "Level -500m 破爛一條街",
+        "base_effects": "基礎休息"
+      },
+      {
+        "id": "martial_dorm",
+        "name": "武館宿舍",
+        "universe": 2,
+        "planet": "iron_fist",
+        "type": "apartment",
+        "price": 15000,
+        "feng_shui_level": 1,
+        "description": "刑天城外圍",
+        "special_effects": "體力恢復+10%"
+      },
+      {
+        "id": "data_pod",
+        "name": "數據艙",
+        "universe": 3,
+        "planet": "cortex_star",
+        "type": "apartment",
+        "price": 20000,
+        "feng_shui_level": 1,
+        "description": "虛擬層公寓",
+        "special_effects": "記憶整理+10%"
+      },
+      {
+        "id": "casino_apartment",
+        "name": "賭城公寓",
+        "universe": 5,
+        "planet": "gold_coin",
+        "type": "apartment",
+        "price": 50000,
+        "feng_shui_level": 1,
+        "description": "永夜賭城平民區",
+        "special_effects": "賭博運+10%"
+      },
+      {
+        "id": "space_mansion",
+        "name": "太空豪宅",
+        "universe": 5,
+        "planet": "tianshu_station",
+        "type": "mansion",
+        "price": 800000,
+        "feng_shui_level": 3,
+        "description": "中央樞紐VIP",
+        "special_effects": "跨宇宙快速旅行"
+      },
+      {
+        "id": "void_fortress",
+        "name": "虛空堡壘",
+        "universe": 9,
+        "planet": "zero_point",
+        "type": "mansion",
+        "price": 1000000,
+        "feng_shui_level": 3,
+        "description": "極度危險但強大",
+        "special_effects": "世界變動率-20%"
+      }
+    ],
+    "feng_shui_upgrades": [
+      {
+        "level": 1,
+        "name": "基礎",
+        "cost": 0,
+        "effects": "休息+存物"
+      },
+      {
+        "level": 2,
+        "name": "和諧",
+        "cost": 10000,
+        "effects": "靈魂修復+5%"
+      },
+      {
+        "level": 3,
+        "name": "福地",
+        "cost": 50000,
+        "effects": "記憶繼承率+20%"
+      },
+      {
+        "level": 4,
+        "name": "洞天",
+        "cost": 200000,
+        "effects": "可種植靈魂之樹"
+      },
+      {
+        "level": 5,
+        "name": "仙境",
+        "cost": 1000000,
+        "effects": "在家時壽命不流逝",
+        "requirements": "導師親自佈陣"
+      }
+    ],
+    "cohabitation": {
+      "max_per_house": 5,
+      "requirements": {
+        "relationship": 60
+      },
+      "benefits": {
+        "memory_inheritance_bonus": 1.0,
+        "fast_travel": true,
+        "message_board": true,
+        "auto_revival": "memory_fully_restored_at_home"
+      }
+    },
+    "message_board": {
+      "cross_run": true,
+      "max_messages": 100,
+      "types": ["player_to_self", "player_to_npc", "npc_to_player"]
+    }
+  },
+
+  "reincarnation": {
+    "mechanics": {
+      "soul_wear": {
+        "per_reincarnation": 0.01,
+        "effects": {
+          "0_to_30": "無影響",
+          "30_to_60": "頭痛+幻覺",
+          "60_to_90": "失憶+人格變化",
+          "90_to_100": "瀕臨崩潰"
+        },
+        "repair_methods": [
+          {
+            "method": "karma",
+            "cost": 1000,
+            "repair": 0.05
+          },
+          {
+            "method": "medical_art_lv5",
+            "repair": 0.1
+          },
+          {
+            "method": "mountain_art_max",
+            "repair": 0.2
+          },
+          {
+            "method": "ark_meditation",
+            "repair_per_day": 0.05
+          },
+          {
+            "method": "master_trial",
+            "repair": 0.3
+          }
+        ]
+      },
+      "inheritance": {
+        "karma": 0.5,
+        "skills": 1.0,
+        "housing": 1.0,
+        "credits": 0.0,
+        "reputation": 0.0,
+        "consumables": 0.0,
+        "equipment": "conditional",
+        "keepsakes": 1.0,
+        "treasures": 1.0
+      },
+      "memory_inheritance_formula": {
+        "base_rate": {
+          "random_npc": 0.05,
+          "regular_npc": 0.2,
+          "important_npc": 0.5,
+          "core_npc": 0.8,
+          "disciples": 0.95
+        },
+        "karma_bonus": "every_1000_karma_adds_5_percent",
+        "special_bonus": {
+          "keepsake": 1.0,
+          "cohabitant": 1.0,
+          "blood_relation": 0.5,
+          "hatred": 0.3
+        },
+        "soul_wear_penalty": "minus_1_percent_per_reincarnation"
+      },
+      "time_mechanics": {
+        "non_linear": true,
+        "landing_time": "random",
+        "landing_location": "random",
+        "constant": "player_is_238th_disciple"
+      }
+    },
+    "previous_disciples": {
+      "total": 237,
+      "endings": {
+        "guardian": {
+          "disciples": "1-50",
+          "choice": "守護夢境",
+          "fate": "成為NPC,融入世界,忘記真相"
+        },
+        "awakener": {
+          "disciples": "51-150",
+          "choice": "喚醒真實",
+          "fate": "去意識之海尋找最初的意識,大部分失蹤"
+        },
+        "escaper": {
+          "disciples": "151-200",
+          "choice": "逃離輪迴",
+          "fate": "被送往夢外,真實宇宙,完全失聯"
+        },
+        "seeker": {
+          "disciples": "201-237",
+          "choice": "繼續尋找",
+          "fate": "繼續輪迴,有些已輪迴數百次"
+        }
+      }
+    }
+  },
+
+  "endings": [
+    {
+      "id": "ending_a",
+      "name": "守護夢境",
+      "name_en": "The Dreamer's Guardian",
+      "faction": "守護派",
+      "requirements": {
+        "skills_max": true,
+        "treasures": 5,
+        "law_shards": 7,
+        "karma": 100000,
+        "master_trial": true,
+        "throne": true
+      },
+      "choice": "讓神繼續沉睡,保護夢境",
+      "consequences": {
+        "world": "繼續存在",
+        "npcs": "繼續生活",
+        "player": "成為新的守夢者,永遠守護王座"
+      },
+      "rewards": {
+        "title": "守夢者",
+        "skin": "guardian_skin",
+        "mode": "endless_mode",
+        "new_game_plus": true
+      },
+      "rating": {
+        "kindness": 5,
+        "loneliness": 4,
+        "meaning": 5,
+        "truth": 2
+      },
+      "message": "有時候,溫柔的謊言比殘酷的真相更值得守護"
+    },
+    {
+      "id": "ending_b",
+      "name": "喚醒真實",
+      "name_en": "The Awakener",
+      "faction": "覺醒派",
+      "requirements": {
+        "skills_max": true,
+        "treasures": 5,
+        "law_shards": 7,
+        "karma": 100000,
+        "master_trial": true,
+        "throne": true
+      },
+      "choice": "喚醒最初的意識,尋求真相",
+      "consequences": {
+        "world": "消失",
+        "npcs": "在真實世界重生",
+        "player": "進入真實世界"
+      },
+      "rewards": {
+        "title": "覺醒者",
+        "epilogue": "real_world_story",
+        "mode": "fourth_wall_mode",
+        "art_book": true
+      },
+      "rating": {
+        "kindness": 2,
+        "courage": 5,
+        "truth": 5,
+        "sacrifice": 5
+      },
+      "message": "有時候,覺醒比沉睡需要更大的勇氣。但代價是——夢會醒。"
+    },
+    {
+      "id": "ending_c",
+      "name": "弒神奪位",
+      "name_en": "The Usurper",
+      "faction": "掠奪派",
+      "requirements": {
+        "skills_max": true,
+        "treasures": 5,
+        "law_shards": 10,
+        "karma": 100000,
+        "master_trial": true,
+        "throne": true
+      },
+      "choice": "殺死造夢者,取而代之",
+      "consequences": {
+        "world": "崩潰",
+        "npcs": "死亡",
+        "player": "失控的神"
+      },
+      "rewards": {
+        "title": "失控的神",
+        "mode": "chaos_mode",
+        "dialogue": "azathoth_truth"
+      },
+      "rating": {
+        "kindness": 1,
+        "power": 5,
+        "control": 0,
+        "tragedy": 5
+      },
+      "message": "力量不等於智慧,野心不等於能力。有些位置,不是任何人都能坐的。",
+      "type": "bad_ending"
+    },
+    {
+      "id": "ending_d",
+      "name": "煉假成真",
+      "name_en": "Dream Becomes Reality",
+      "faction": "超越派",
+      "requirements": {
+        "skills_max": true,
+        "treasures": 5,
+        "law_shards": 10,
+        "karma": 200000,
+        "master_trial": true,
+        "throne": true,
+        "all_disciples_wishes": true,
+        "all_universe_reputation": 80,
+        "soulmate": true
+      },
+      "choice": "將夢境煉成真實",
+      "consequences": {
+        "world": "成為真實",
+        "npcs": "獲得真正的靈魂",
+        "player": "新世界的守護者"
+      },
+      "rewards": {
+        "title": "造夢者",
+        "mode": "sandbox_mode",
+        "editor": "world_editor",
+        "developer_mode": true,
+        "character_unlock": "master"
+      },
+      "rating": {
+        "kindness": 5,
+        "wisdom": 5,
+        "truth": 5,
+        "perfection": 5
+      },
+      "message": "夢與現實的界限,從來不是真假,而是在乎。當你真心在乎,夢就成為了真實。",
+      "type": "true_ending"
+    }
+  ],
+
+  "achievements": {
+    "categories": ["exploration", "combat", "cultivation", "relationships", "endings", "hidden"],
+    "total_count": 100,
+    "points_system": {
+      "common": 1,
+      "rare": 3,
+      "epic": 10,
+      "legendary": 30,
+      "mythic": 100
+    },
+    "shop": {
+      "special_skin": 10,
+      "rare_item_pack": 20,
+      "karma_bonus": 50,
+      "skill_points": 30,
+      "legendary_equipment": 100,
+      "new_game_plus": 200,
+      "developer_mode": 500,
+      "custom_ending": 1000
+    }
+  },
+
+  "api_integration": {
+    "claude_api": {
+      "model": "claude-sonnet-4-20250514",
+      "max_tokens": 1000,
+      "use_cases": [
+        "深度NPC對話",
+        "動態劇情生成",
+        "算命結果解讀",
+        "記憶繼承文本"
+      ],
+      "trigger_conditions": {
+        "player_choice": "深入交談",
+        "important_plot_npc": true,
+        "relationship_above": 50
+      },
+      "caching": true,
+      "fallback": "local_templates"
+    },
+    "web_search": {
+      "enabled": false,
+      "note": "遊戲內不需要實時網絡搜索"
+    }
+  },
+
+  "localization": {
+    "supported_languages": ["zh-TW", "zh-CN", "en", "ja", "ko"],
+    "default": "zh-TW",
+    "special_handling": {
+      "divination_terms": "保留中文原文+註釋",
+      "philosophical_concepts": "詳細解釋",
+      "cultural_references": "本地化改編"
+    }
+  },
+
+  "version_control": {
+    "current_version": "4.0",
+    "changelog": {
+      "4.0": "完整JSON數據結構",
+      "3.0": "核心系統設計",
+      "2.0": "世界觀擴展",
+      "1.0": "初始版本"
+    },
+    "compatibility": {
+      "godot_version": "4.x",
+      "minimum_ram": "8GB",
+      "recommended_ram": "16GB",
+      "storage": "5GB"
+    }
+  }
+}

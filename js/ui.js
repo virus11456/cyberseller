@@ -20,18 +20,29 @@
 
   function esc(s) { return String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
 
+  // 五行小標籤
+  function elementTag(el) {
+    const m = el && SPIRE.ELEMENT_META ? SPIRE.ELEMENT_META[el] : null;
+    return m ? `<span class="el-tag el-${el}" title="五行·${m.zh}">${m.icon}</span>` : '';
+  }
+
   // ---------------------------------------------------------------- 卡牌 HTML
   function cardHtml(inst, opts) {
     opts = opts || {};
     const { def, v, cost, name } = SPIRE.resolveCard(inst);
     const typeClass = 'type-' + def.type;
+    const schoolClass = def.school ? ' school-' + def.school : '';
+    const schoolZh = def.school && SPIRE.SCHOOL_META[def.school] ? SPIRE.SCHOOL_META[def.school].zh : '';
+    const elMeta = def.element && SPIRE.ELEMENT_META ? SPIRE.ELEMENT_META[def.element] : null;
+    const elBadge = elMeta ? `<div class="card-el el-${def.element}" title="五行·${elMeta.zh}">${elMeta.icon}</div>` : '';
     const playable = opts.playable !== false;
     const costTxt = cost < 0 ? '' : cost;
     const sela = (sel.cardUid === inst.uid) ? ' selected' : '';
-    return `<div class="card ${typeClass}${playable ? '' : ' unplayable'}${sela}" ${opts.uid ? `data-act="play" data-uid="${inst.uid}"` : ''}>
+    return `<div class="card ${typeClass}${schoolClass}${playable ? '' : ' unplayable'}${sela}" ${opts.uid ? `data-act="play" data-uid="${inst.uid}"` : ''}>
       <div class="card-cost">${costTxt}</div>
+      ${elBadge}
       <div class="card-name">${esc(name)}</div>
-      <div class="card-type">${typeName(def.type)}</div>
+      <div class="card-type">${schoolZh ? schoolZh + '·' : ''}${typeName(def.type)}</div>
       <div class="card-text">${def.text ? def.text(v) : ''}</div>
     </div>`;
   }
@@ -112,12 +123,12 @@
     const canContinue = SPIRE.Game.hasSave();
     root.innerHTML = `<div class="screen title-screen">
       <h1 class="game-title">深淵尖塔</h1>
-      <p class="subtitle">Abyss Spire — 一款卡牌 Roguelike</p>
+      <p class="subtitle">觀測者之夢 · 算命師的輪迴 — 卡牌 Roguelike</p>
       <div class="menu">
         ${canContinue ? '<button class="btn big" data-act="continue">繼續冒險</button>' : ''}
         <button class="btn big" data-act="new-run">新的旅程</button>
       </div>
-      <p class="hint">仿《殺戮尖塔》核心機制：能量 · 格擋 · 卡組構築 · 分支地圖 · 遺物</p>
+      <p class="hint">五術學派 · 五行相剋 · 能量 · 格擋 · 卡組構築 · 分支地圖 · 遺物</p>
     </div>`;
   }
 
@@ -210,7 +221,7 @@
       return `<div class="enemy ${canTarget ? 'targetable' : ''} ${e.boss ? 'boss' : ''} ${e.elite ? 'elite' : ''}" ${act}>
         ${intentHtml(c, e)}
         <div class="enemy-art">${e.boss ? '👹' : e.elite ? '👺' : '👾'}</div>
-        <div class="enemy-name">${esc(e.name)}</div>
+        <div class="enemy-name">${esc(e.name)} ${elementTag(e.element)}</div>
         <div class="hpbar"><div class="hpfill enemy-hp" style="width:${hpPct}%"></div>
           <span class="hptext">${e.hp}/${e.maxHp}</span></div>
         ${e.block > 0 ? `<div class="blockbadge">🛡 ${e.block}</div>` : ''}
@@ -222,8 +233,8 @@
     const p = c.player;
     const pHpPct = Math.max(0, g.hp / g.maxHp * 100);
     const playerHtml = `<div class="player-panel">
-      <div class="player-art">🛡️</div>
-      <div class="player-name">鐵衛</div>
+      <div class="player-art">🔮</div>
+      <div class="player-name">算命師</div>
       <div class="hpbar"><div class="hpfill player-hp" style="width:${pHpPct}%"></div>
         <span class="hptext">${g.hp}/${g.maxHp}</span></div>
       ${p.block > 0 ? `<div class="blockbadge big">🛡 ${p.block}</div>` : ''}
