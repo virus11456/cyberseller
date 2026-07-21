@@ -71,6 +71,7 @@
     return `<div class="topbar">
       <span class="stat hp">❤ ${g.hp}/${g.maxHp}</span>
       <span class="stat gold">💰 ${g.gold}</span>
+      <span class="stat karma">☯ ${g.karma || 0}</span>
       <span class="stat act">🌌 ${SPIRE.ENCOUNTERS.acts[g.act] ? esc(SPIRE.ENCOUNTERS.acts[g.act].name) : ''}</span>
       <span class="stat floor">🗼 第 ${g.floor} 層</span>
       <span class="relics">${relics}</span>
@@ -128,14 +129,29 @@
   function renderTitle() {
     if (!root) root = document.getElementById('app');
     const canContinue = SPIRE.Game.hasSave();
+    const m = SPIRE.Meta.get();
+    const diffBtns = Object.keys(SPIRE.DIFFICULTY).map(k =>
+      `<button class="btn small diff-btn${m.difficulty === k ? ' active' : ''}" data-act="set-diff" data-diff="${k}">${SPIRE.DIFFICULTY[k].name}</button>`).join('');
+    const canRepair = m.karma >= 100 && m.soulWear > 0;
     root.innerHTML = `<div class="screen title-screen">
       <h1 class="game-title">深淵尖塔</h1>
       <p class="subtitle">觀測者之夢 · 算命師的輪迴 — 卡牌 Roguelike</p>
       <div class="menu">
         ${canContinue ? '<button class="btn big" data-act="continue">繼續冒險</button>' : ''}
-        <button class="btn big" data-act="new-run">新的旅程</button>
+        <button class="btn big" data-act="new-run">新的輪迴</button>
       </div>
-      <p class="hint">五術學派 · 五行相剋 · 能量 · 格擋 · 卡組構築 · 分支地圖 · 遺物</p>
+      <div class="meta-panel">
+        <div class="meta-stats">
+          <span>🔁 輪迴 ${m.runs}</span>
+          <span class="karma">☯ 功德 ${m.karma}</span>
+          <span>💀 靈魂磨損 ${m.soulWear}%</span>
+          <span>🏔 最佳 第 ${(m.bestAct || 0) + 1} 幕</span>
+        </div>
+        <div class="diff-row">難度：${diffBtns}</div>
+        <button class="btn small ghost" data-act="repair-soul"${canRepair ? '' : ' disabled'}>🕯 修復靈魂　−5% 磨損 / 100 功德</button>
+        ${m.soulWear >= 30 ? `<div class="soul-warn">⚠ 靈魂磨損 ≥30%：開局手牌將混入「心魔」詛咒${m.soulWear >= 60 ? '，且最大生命下降' : ''}</div>` : ''}
+      </div>
+      <p class="hint">五術學派 · 五行相剋 · 難度 · 輪迴繼承 · 分支地圖 · 遺物</p>
     </div>`;
   }
 
@@ -440,6 +456,8 @@
     switch (act) {
       case 'new-run': overlay = null; sel = { cardUid: null, potionIdx: null }; Game.startNewRun(); break;
       case 'continue': Game.load(); break;
+      case 'set-diff': SPIRE.Meta.setDifficulty(t.getAttribute('data-diff')); renderTitle(); break;
+      case 'repair-soul': SPIRE.Meta.repairSoul(); renderTitle(); break;
       case 'node': Game.selectNode(t.getAttribute('data-id')); break;
 
       case 'play': {

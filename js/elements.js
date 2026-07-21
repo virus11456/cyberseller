@@ -76,6 +76,7 @@
     dazed:          { school: 'physiognomy', element: 'water' },
     burn:           { school: 'fate',        element: 'fire' },
     slimed:         { school: 'fate',        element: 'water' },
+    heartDemon:     { school: 'fate',        element: 'earth' },
   };
 
   // ---- 敵人 → 五行 ----
