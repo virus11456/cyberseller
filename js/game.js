@@ -31,6 +31,8 @@
         relics: ['burningBlood'],
         potions: [], maxPotions: 3,
         floor: 0,
+        act: 0,
+        advanceAct: false,
         screen: 'map',
         combat: null,
         pending: null,
@@ -54,6 +56,7 @@
           deck: G.deck, relics: G.relics, potions: G.potions, floor: G.floor,
           screen: G.screen === 'combat' ? 'map' : G.screen, map: G.map,
           removeCost: G.removeCost, shop: G.shop, event: G.event, pending: G.pending,
+          act: G.act, advanceAct: G.advanceAct,
         };
         localStorage.setItem(SAVE_KEY, JSON.stringify(data));
       } catch (e) { /* localStorage 不可用時忽略 */ }
@@ -94,8 +97,8 @@
     },
 
     pickEncounter(kind) {
-      const pool = SPIRE.ENCOUNTERS[kind];
-      return G.rng.pick(pool).slice();
+      const act = SPIRE.ENCOUNTERS.acts[G.act] || SPIRE.ENCOUNTERS.acts[0];
+      return G.rng.pick(act[kind]).slice();
     },
 
     // ---------------------------------------------------------------- 戰鬥
@@ -146,11 +149,21 @@
         SPIRE.UI.render();
         return;
       }
-      // 勝利
+      // Boss 勝利：非最終幕則進入下一宇宙，最終幕則通關
       if (kind === 'boss') {
-        G.wonAct = true;
-        G.screen = 'victory';
-        this.clearSave();
+        const lastAct = G.act >= SPIRE.ENCOUNTERS.acts.length - 1;
+        if (lastAct) {
+          G.wonAct = true;
+          G.screen = 'victory';
+          this.clearSave();
+          SPIRE.UI.render();
+          return;
+        }
+        this.buildRewards('boss');
+        G.advanceAct = true;
+        G.combat = null;
+        G.screen = 'reward';
+        this.save();
         SPIRE.UI.render();
         return;
       }
@@ -166,20 +179,20 @@
       const rng = G.rng;
       const rewards = [];
       // 金幣
-      const goldRange = kind === 'elite' ? [25, 35] : [10, 20];
+      const goldRange = kind === 'boss' ? [40, 60] : kind === 'elite' ? [25, 35] : [10, 20];
       const gold = rng.int(goldRange[0], goldRange[1]);
       rewards.push({ type: 'gold', amount: gold });
-      // 藥水（40% 機率，戰後）
-      if (rng.random() < (kind === 'elite' ? 0.6 : 0.4) && G.potions.length < G.maxPotions) {
+      // 藥水（戰後機率）
+      if (rng.random() < (kind === 'boss' ? 0.7 : kind === 'elite' ? 0.6 : 0.4) && G.potions.length < G.maxPotions) {
         rewards.push({ type: 'potion', key: rng.pick(Object.keys(SPIRE.POTIONS)) });
       }
-      // 遺物（精英必掉）
-      if (kind === 'elite') {
-        const relic = this.rollRelic(['uncommon', 'common']);
+      // 遺物（精英/道主必掉）
+      if (kind === 'elite' || kind === 'boss') {
+        const relic = this.rollRelic(kind === 'boss' ? ['boss', 'uncommon'] : ['uncommon', 'common']);
         if (relic) rewards.push({ type: 'relic', key: relic });
       }
       // 卡牌三選一
-      rewards.push({ type: 'card', options: this.rollCardChoices(3, kind === 'elite' ? 1 : 0) });
+      rewards.push({ type: 'card', options: this.rollCardChoices(3, kind === 'boss' ? 2 : kind === 'elite' ? 1 : 0) });
       G.pending = { rewards, taken: [] };
     },
 
@@ -237,7 +250,18 @@
       const r = G.pending.rewards[index];
       if (r && r.type === 'card') { r.taken = true; this.save(); SPIRE.UI.render(); }
     },
-    leaveRewards() { G.pending = null; G.screen = 'map'; this.save(); SPIRE.UI.render(); },
+    leaveRewards() {
+      G.pending = null;
+      if (G.advanceAct) { G.advanceAct = false; this.startAct(G.act + 1); }
+      else { G.screen = 'map'; }
+      this.save(); SPIRE.UI.render();
+    },
+    startAct(i) {
+      G.act = i;
+      G.floor = 0;
+      G.map = SPIRE.MapGen.generateMap(G.rng);
+      G.screen = 'map';
+    },
 
     gainRelic(key) {
       if (!G.relics.includes(key)) {
