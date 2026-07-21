@@ -20,10 +20,13 @@
 
   function esc(s) { return String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c])); }
 
-  // 五行小標籤
+  // 五行小標籤（有像素圖用圖，否則 emoji）
   function elementTag(el) {
     const m = el && SPIRE.ELEMENT_META ? SPIRE.ELEMENT_META[el] : null;
-    return m ? `<span class="el-tag el-${el}" title="五行·${m.zh}">${m.icon}</span>` : '';
+    if (!m) return '';
+    if (SPIRE.ELEMENT_ART && SPIRE.ELEMENT_ART[el])
+      return `<img class="el-img" src="assets/art/elements/${el}.png" alt="${m.zh}" title="五行·${m.zh}">`;
+    return `<span class="el-tag el-${el}" title="五行·${m.zh}">${m.icon}</span>`;
   }
 
   // ---------------------------------------------------------------- 卡牌 HTML
@@ -34,7 +37,9 @@
     const schoolClass = def.school ? ' school-' + def.school : '';
     const schoolZh = def.school && SPIRE.SCHOOL_META[def.school] ? SPIRE.SCHOOL_META[def.school].zh : '';
     const elMeta = def.element && SPIRE.ELEMENT_META ? SPIRE.ELEMENT_META[def.element] : null;
-    const elBadge = elMeta ? `<div class="card-el el-${def.element}" title="五行·${elMeta.zh}">${elMeta.icon}</div>` : '';
+    const elBadge = !elMeta ? '' : ((SPIRE.ELEMENT_ART && SPIRE.ELEMENT_ART[def.element])
+      ? `<img class="card-el-img" src="assets/art/elements/${def.element}.png" alt="${elMeta.zh}" title="五行·${elMeta.zh}">`
+      : `<div class="card-el el-${def.element}" title="五行·${elMeta.zh}">${elMeta.icon}</div>`);
     const playable = opts.playable !== false;
     const costTxt = cost < 0 ? '' : cost;
     const sela = (sel.cardUid === inst.uid) ? ' selected' : '';
@@ -102,6 +107,7 @@
       case 'event': html = renderEvent(); break;
       case 'gameover': html = renderGameOver(); break;
       case 'victory': html = renderVictory(); break;
+      case 'story': html = renderStory(); break;
       default: html = renderMap();
     }
     if (overlay === 'deck') html += renderDeckOverlay();
@@ -393,6 +399,20 @@
     </div>`;
   }
 
+  // ---------------------------------------------------------------- 敘事
+  function renderStory() {
+    const s = G().story || { title: '', lines: [] };
+    const body = (s.lines || []).map(l => `<p>${esc(l)}</p>`).join('');
+    return `<div class="screen story-screen">
+      <div class="story-box">
+        ${s.title ? `<h2 class="story-title">${esc(s.title)}</h2>` : ''}
+        ${s.speaker ? `<div class="story-speaker">— ${esc(s.speaker)} —</div>` : ''}
+        <div class="story-body">${body}</div>
+        <button class="btn big" data-act="story-continue">繼續 →</button>
+      </div>
+    </div>`;
+  }
+
   // ---------------------------------------------------------------- 牌組檢視
   function renderDeckOverlay() {
     const g = G();
@@ -462,6 +482,8 @@
       case 'shop-leave': G().shopRemoving = false; Game.leaveShop(); break;
 
       case 'event': Game.eventChoice(idx('data-i')); break;
+
+      case 'story-continue': Game.storyContinue(); break;
 
       case 'view-deck': overlay = 'deck'; render(); break;
       case 'close-overlay':

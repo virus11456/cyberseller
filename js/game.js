@@ -33,6 +33,8 @@
         floor: 0,
         act: 0,
         advanceAct: false,
+        story: null,
+        storyThen: null,
         screen: 'map',
         combat: null,
         pending: null,
@@ -44,8 +46,43 @@
       };
       G.map = SPIRE.MapGen.generateMap(G.rng);
       SPIRE.state = G;
-      this.save();
+      // 序章 → 第一幕進場 → 地圖
+      this.showStory(SPIRE.STORY.prologue, 'actintro:0');
+    },
+
+    // ---------------------------------------------------------------- 敘事
+    showStory(story, thenToken, noSave) {
+      G.story = story || { title: '', lines: [] };
+      G.storyThen = thenToken || 'map';
+      G.screen = 'story';
+      if (!noSave) this.save();
       SPIRE.UI.render();
+    },
+    storyContinue() {
+      const t = G.storyThen;
+      G.story = null; G.storyThen = null;
+      this.resolveStoryThen(t);
+    },
+    resolveStoryThen(t) {
+      if (t && t.indexOf('actintro:') === 0) {
+        const i = parseInt(t.split(':')[1], 10);
+        this.showStory(SPIRE.STORY.actIntros[i], 'map');
+        return;
+      }
+      if (t && t.indexOf('startboss:') === 0) {
+        this.startCombat([t.split(':')[1]], 'boss');
+        return;
+      }
+      if (t === 'gameover') { this.clearSave(); G.screen = 'gameover'; SPIRE.UI.render(); return; }
+      if (t === 'victory') { this.clearSave(); G.wonAct = true; G.screen = 'victory'; SPIRE.UI.render(); return; }
+      // 預設回地圖
+      G.screen = 'map'; this.save(); SPIRE.UI.render();
+    },
+    enterAct(i) {
+      G.act = i;
+      G.floor = 0;
+      G.map = SPIRE.MapGen.generateMap(G.rng);
+      this.showStory(SPIRE.STORY.actIntros[i], 'map');
     },
 
     hasSave() { try { return !!localStorage.getItem(SAVE_KEY); } catch (e) { return false; } },
@@ -57,6 +94,7 @@
           screen: G.screen === 'combat' ? 'map' : G.screen, map: G.map,
           removeCost: G.removeCost, shop: G.shop, event: G.event, pending: G.pending,
           act: G.act, advanceAct: G.advanceAct,
+          story: G.story, storyThen: G.storyThen,
         };
         localStorage.setItem(SAVE_KEY, JSON.stringify(data));
       } catch (e) { /* localStorage 不可用時忽略 */ }
@@ -86,7 +124,13 @@
       switch (node.type) {
         case 'monster': this.startCombat(this.pickEncounter(node.r < 3 ? 'easy' : 'normal'), 'normal'); break;
         case 'elite': this.startCombat(this.pickEncounter('elite'), 'elite'); break;
-        case 'boss': this.startCombat(this.pickEncounter('boss'), 'boss'); break;
+        case 'boss': {
+          const enc = this.pickEncounter('boss');
+          const intro = SPIRE.STORY.bossIntros[enc[0]];
+          if (intro) { this.showStory(intro, 'startboss:' + enc[0]); return; }
+          this.startCombat(enc, 'boss');
+          break;
+        }
         case 'rest': G.screen = 'rest'; break;
         case 'shop': this.openShop(); break;
         case 'event': this.openEvent(); break;
@@ -144,19 +188,14 @@
 
     endCombat(result, kind) {
       if (result === 'lose') {
-        G.screen = 'gameover';
-        this.clearSave();
-        SPIRE.UI.render();
+        this.showStory(SPIRE.STORY.reincarnation, 'gameover', true);
         return;
       }
       // Boss 勝利：非最終幕則進入下一宇宙，最終幕則通關
       if (kind === 'boss') {
         const lastAct = G.act >= SPIRE.ENCOUNTERS.acts.length - 1;
         if (lastAct) {
-          G.wonAct = true;
-          G.screen = 'victory';
-          this.clearSave();
-          SPIRE.UI.render();
+          this.showStory(SPIRE.STORY.ending, 'victory', true);
           return;
         }
         this.buildRewards('boss');
@@ -252,15 +291,8 @@
     },
     leaveRewards() {
       G.pending = null;
-      if (G.advanceAct) { G.advanceAct = false; this.startAct(G.act + 1); }
-      else { G.screen = 'map'; }
-      this.save(); SPIRE.UI.render();
-    },
-    startAct(i) {
-      G.act = i;
-      G.floor = 0;
-      G.map = SPIRE.MapGen.generateMap(G.rng);
-      G.screen = 'map';
+      if (G.advanceAct) { G.advanceAct = false; this.enterAct(G.act + 1); }
+      else { G.screen = 'map'; this.save(); SPIRE.UI.render(); }
     },
 
     gainRelic(key) {
