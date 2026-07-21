@@ -63,6 +63,17 @@ b { color: #fff; }
 .topbar .stat { font-weight: 700; padding: 3px 8px; border-radius: 6px; background: #00000030; }
 .topbar .hp { color: var(--hp); }
 .topbar .gold { color: var(--gold); }
+.topbar .karma { color: #b48ce0; }
+
+/* 標題 meta 面板（輪迴 / 難度 / 靈魂）*/
+.meta-panel { margin: 18px auto; max-width: 540px; background: #00000033; border: 1px solid var(--line);
+  border-radius: 12px; padding: 16px; }
+.meta-stats { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; color: var(--ink); font-size: 14px; margin-bottom: 12px; }
+.meta-stats .karma { color: #b48ce0; }
+.diff-row { display: flex; gap: 8px; justify-content: center; align-items: center; color: var(--muted); margin-bottom: 10px; }
+.diff-btn.active { background: linear-gradient(#b23a3a, #7a2626); border-color: #d64550; color: #fff; }
+.soul-warn { color: var(--debuff); font-size: 12px; margin-top: 8px; }
+.btn[disabled] { opacity: .4; cursor: not-allowed; pointer-events: none; }
 .relics { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; }
 .relic { font-size: 12px; background: #3a2f1a; color: var(--gold);
   padding: 2px 6px; border-radius: 5px; border: 1px solid #5a4620; cursor: help; }

@@ -23,11 +23,20 @@
     // ---------------------------------------------------------------- 新遊戲
     startNewRun(seed) {
       seed = (seed >>> 0) || SPIRE.randomSeed();
+      const meta = SPIRE.Meta.get();
+      const soulWear = meta.soulWear || 0;
+      const pen = SPIRE.Meta.soulPenalty(soulWear);
+      const maxHp = 75 - pen.hp;
+      const deck = starterDeck();
+      for (let i = 0; i < pen.curses; i++) deck.push({ key: 'heartDemon', upgraded: false });
       G = {
         seed,
         rng: new SPIRE.RNG(seed),
-        maxHp: 75, hp: 75, gold: 99,
-        deck: starterDeck(),
+        maxHp: maxHp, hp: maxHp, gold: 99,
+        karma: 0,
+        difficulty: meta.difficulty,
+        soulWear: soulWear,
+        deck: deck,
         relics: ['burningBlood'],
         potions: [], maxPotions: 3,
         floor: 0,
@@ -73,8 +82,8 @@
         this.startCombat([t.split(':')[1]], 'boss');
         return;
       }
-      if (t === 'gameover') { this.clearSave(); G.screen = 'gameover'; SPIRE.UI.render(); return; }
-      if (t === 'victory') { this.clearSave(); G.wonAct = true; G.screen = 'victory'; SPIRE.UI.render(); return; }
+      if (t === 'gameover') { SPIRE.Meta.onRunEnd(G); this.clearSave(); G.screen = 'gameover'; SPIRE.UI.render(); return; }
+      if (t === 'victory') { SPIRE.Meta.onRunEnd(G); this.clearSave(); G.wonAct = true; G.screen = 'victory'; SPIRE.UI.render(); return; }
       // 預設回地圖
       G.screen = 'map'; this.save(); SPIRE.UI.render();
     },
@@ -95,6 +104,7 @@
           removeCost: G.removeCost, shop: G.shop, event: G.event, pending: G.pending,
           act: G.act, advanceAct: G.advanceAct,
           story: G.story, storyThen: G.storyThen,
+          karma: G.karma, difficulty: G.difficulty, soulWear: G.soulWear,
         };
         localStorage.setItem(SAVE_KEY, JSON.stringify(data));
       } catch (e) { /* localStorage 不可用時忽略 */ }
@@ -191,6 +201,9 @@
         this.showStory(SPIRE.STORY.reincarnation, 'gameover', true);
         return;
       }
+      // 勝利：獲得功德（依難度）
+      const dk = (SPIRE.DIFFICULTY[G.difficulty] || SPIRE.DIFFICULTY.normal).karma;
+      G.karma = (G.karma || 0) + Math.round(({ normal: 6, elite: 16, boss: 36 }[kind] || 6) * dk);
       // Boss 勝利：非最終幕則進入下一宇宙，最終幕則通關
       if (kind === 'boss') {
         const lastAct = G.act >= SPIRE.ENCOUNTERS.acts.length - 1;
@@ -219,7 +232,7 @@
       const rewards = [];
       // 金幣
       const goldRange = kind === 'boss' ? [40, 60] : kind === 'elite' ? [25, 35] : [10, 20];
-      const gold = rng.int(goldRange[0], goldRange[1]);
+      const gold = Math.round(rng.int(goldRange[0], goldRange[1]) * (SPIRE.DIFFICULTY[G.difficulty] || SPIRE.DIFFICULTY.normal).gold);
       rewards.push({ type: 'gold', amount: gold });
       // 藥水（戰後機率）
       if (rng.random() < (kind === 'boss' ? 0.7 : kind === 'elite' ? 0.6 : 0.4) && G.potions.length < G.maxPotions) {

@@ -26,6 +26,7 @@
     constructor(G, enemyKeys, kind) {
       this.G = G;
       this.rng = G.rng;
+      this._diff = (SPIRE.DIFFICULTY && SPIRE.DIFFICULTY[G.difficulty]) || (SPIRE.DIFFICULTY && SPIRE.DIFFICULTY.normal) || { dmg: 1, hp: 1 };
       this.kind = kind || 'normal';
       this.round = 0;
       this.over = false;
@@ -60,7 +61,7 @@
 
     buildEnemy(key, idx) {
       const def = SPIRE.ENEMIES[key];
-      const hp = this.rng.int(def.hp[0], def.hp[1]);
+      const hp = Math.max(1, Math.round(this.rng.int(def.hp[0], def.hp[1]) * this._diff.hp));
       const e = {
         key, def, name: def.name, idx, alive: true,
         hp, maxHp: hp, block: 0, statuses: {}, turns: 0,
@@ -103,6 +104,7 @@
       let dmg = base + this.get(self, 'strength');
       if (this.get(self, 'weak') > 0) dmg = Math.floor(dmg * 0.75);
       if (this.get(this.player, 'vulnerable') > 0) dmg = Math.floor(dmg * 1.5);
+      if (this._diff) dmg = Math.floor(dmg * this._diff.dmg);
       return Math.max(0, dmg);
     }
     // UI 用：意圖顯示的每次傷害
