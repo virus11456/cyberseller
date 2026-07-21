@@ -66,6 +66,7 @@
     return `<div class="topbar">
       <span class="stat hp">❤ ${g.hp}/${g.maxHp}</span>
       <span class="stat gold">💰 ${g.gold}</span>
+      <span class="stat act">🌌 ${SPIRE.ENCOUNTERS.acts[g.act] ? esc(SPIRE.ENCOUNTERS.acts[g.act].name) : ''}</span>
       <span class="stat floor">🗼 第 ${g.floor} 層</span>
       <span class="relics">${relics}</span>
       <span class="potions">${potions}</span>
@@ -136,6 +137,7 @@
   function renderMap() {
     const g = G();
     const map = g.map;
+    const actInfo = SPIRE.ENCOUNTERS.acts[g.act] || {};
     const ICONS = SPIRE.MapGen.ICONS;
     const W = map.WIDTH, ROWS = map.ROWS;
     const totalRows = ROWS + 1;
@@ -173,7 +175,7 @@
 
     return `${topBar()}
     <div class="screen map-screen">
-      <div class="map-header">選擇你的路線 — 抵達頂端挑戰 Boss ${ICONS.boss}</div>
+      <div class="map-header">第 ${g.act + 1} 幕 · ${esc(actInfo.name || '')}　<span class="map-sub">${esc(actInfo.subtitle || '')}</span> — 抵達頂端挑戰道主 ${ICONS.boss}</div>
       <div class="map-scroll">
         <div class="map-canvas" style="width:${width}px;height:${height}px">
           <svg class="map-svg" width="${width}" height="${height}">${lines}</svg>
@@ -385,9 +387,9 @@
   }
   function renderVictory() {
     return `<div class="screen end-screen victory">
-      <h1>👑 尖塔征服！</h1>
-      <p>你擊敗了 Boss，通過了深淵尖塔！</p>
-      <button class="btn big" data-act="new-run">開啟新旅程</button>
+      <h1>👑 通天！</h1>
+      <p>你以算命師之身穿越歸墟、武神界、星際商盟，擊敗三位道主，完成了本次輪迴！</p>
+      <button class="btn big" data-act="new-run">開啟新的輪迴</button>
     </div>`;
   }
 

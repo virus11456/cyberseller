@@ -430,6 +430,134 @@
     },
   };
 
+  // ===== Phase 2：三幕敵群（依 Kiro 世界觀，HP 依卡牌節奏縮放）=====
+  Object.assign(ENEMIES, {
+    // --- 第一幕·歸墟（廢土）---
+    scavenger: {
+      name: '拾荒者', hp: [24, 30], element: 'earth',
+      chooseMove(rng, e, turn) {
+        if (rng.random() < 0.6) return mv({ name: '投擲廢料', intent: 'attack', baseDmg: 7, times: 1, run: (C, s) => C.enemyAttack(s, 7) });
+        return mv({ name: '撿拾', intent: 'defend', run: (C, s) => C.enemyBlock(s, 6) });
+      },
+    },
+    gangster: {
+      name: '黑幫打手', hp: [40, 46], element: 'fire',
+      chooseMove(rng, e, turn) {
+        const r = rng.random();
+        if (r < 0.45) return mv({ name: '揮棍', intent: 'attack', baseDmg: 10, times: 1, run: (C, s) => C.enemyAttack(s, 10) });
+        if (r < 0.7) return mv({ name: '亮傢伙', intent: 'buff', run: (C, s) => C.status(s, 'strength', 2) });
+        return mv({ name: '連毆', intent: 'attack', baseDmg: 5, times: 2, run: (C, s) => { C.enemyAttack(s, 5); C.enemyAttack(s, 5); } });
+      },
+    },
+    mechGuard: {
+      name: '機械警衛', hp: [30, 36], element: 'metal',
+      chooseMove(rng, e, turn) {
+        const r = rng.random();
+        if (r < 0.5) return mv({ name: '光束', intent: 'attack', baseDmg: 8, times: 1, run: (C, s) => C.enemyAttack(s, 8) });
+        if (r < 0.8) return mv({ name: '護盾', intent: 'defend', run: (C, s) => C.enemyBlock(s, 8) });
+        return mv({ name: '突刺', intent: 'attack', baseDmg: 11, times: 1, run: (C, s) => C.enemyAttack(s, 11) });
+      },
+    },
+    junkBrute: {
+      name: '拾荒暴徒', hp: [80, 88], element: 'earth', elite: true,
+      chooseMove(rng, e, turn) {
+        if (turn === 0) return mv({ name: '咆哮', intent: 'buff', run: (C, s) => C.status(s, 'strength', 3) });
+        if (turn % 3 === 0) return mv({ name: '頭槌', intent: 'attack_debuff', baseDmg: 8, times: 1, run: (C, s) => { C.enemyAttack(s, 8); C.status(C.player, 'vulnerable', 2); } });
+        return mv({ name: '猛砸', intent: 'attack', baseDmg: 15, times: 1, run: (C, s) => C.enemyAttack(s, 15) });
+      },
+    },
+    zhulong: {
+      name: '燭龍殘骸', hp: [240, 240], element: 'fire', boss: true,
+      chooseMove(rng, e, turn) {
+        const seq = turn % 4;
+        if (seq === 0) return mv({ name: '龍焰', intent: 'attack', baseDmg: 30, times: 1, run: (C, s) => C.enemyAttack(s, 30) });
+        if (seq === 1) return mv({ name: '餘燼', intent: 'debuff', run: (C, s) => { C.addCard('burn', 'discard'); C.addCard('burn', 'discard'); } });
+        if (seq === 2) return mv({ name: '尾掃', intent: 'attack_debuff', baseDmg: 9, times: 1, run: (C, s) => { C.enemyAttack(s, 9); C.status(C.player, 'weak', 2); } });
+        return mv({ name: '蓄能', intent: 'buff', run: (C, s) => { C.status(s, 'strength', 3); C.enemyBlock(s, 8); } });
+      },
+    },
+
+    // --- 第二幕·武神界（武道）---
+    martialArtist: {
+      name: '武者', hp: [34, 42], element: 'fire',
+      chooseMove(rng, e, turn) {
+        if (rng.random() < 0.6) return mv({ name: '直拳', intent: 'attack', baseDmg: 9, times: 1, run: (C, s) => C.enemyAttack(s, 9) });
+        return mv({ name: '蓄勁', intent: 'buff', run: (C, s) => C.status(s, 'strength', 2) });
+      },
+    },
+    gladiator: {
+      name: '角鬥士', hp: [46, 54], element: 'metal',
+      chooseMove(rng, e, turn) {
+        const r = rng.random();
+        if (r < 0.5) return mv({ name: '揮砍', intent: 'attack', baseDmg: 12, times: 1, run: (C, s) => C.enemyAttack(s, 12) });
+        if (r < 0.8) return mv({ name: '舉盾', intent: 'defend', run: (C, s) => C.enemyBlock(s, 8) });
+        return mv({ name: '盾擊', intent: 'attack_defend', baseDmg: 7, times: 1, run: (C, s) => { C.enemyAttack(s, 7); C.enemyBlock(s, 5); } });
+      },
+    },
+    eliteWarrior: {
+      name: '精英武者', hp: [95, 105], element: 'metal', elite: true,
+      chooseMove(rng, e, turn) {
+        if (turn === 0) return mv({ name: '戰吼', intent: 'buff', run: (C, s) => C.status(s, 'strength', 3) });
+        const seq = turn % 3;
+        if (seq === 0) return mv({ name: '破防', intent: 'attack_debuff', baseDmg: 10, times: 1, run: (C, s) => { C.enemyAttack(s, 10); C.status(C.player, 'vulnerable', 2); } });
+        if (seq === 1) return mv({ name: '連擊', intent: 'attack', baseDmg: 6, times: 2, run: (C, s) => { C.enemyAttack(s, 6); C.enemyAttack(s, 6); } });
+        return mv({ name: '重斬', intent: 'attack', baseDmg: 16, times: 1, run: (C, s) => C.enemyAttack(s, 16) });
+      },
+    },
+    kratos: {
+      name: '奎托斯', hp: [300, 300], element: 'fire', boss: true,
+      init: (e) => { e.enraged = false; },
+      chooseMove(rng, e, turn) {
+        const seq = turn % 4;
+        if (seq === 0) return mv({ name: '天崩地裂拳', intent: 'attack', baseDmg: 40, times: 1, run: (C, s) => C.enemyAttack(s, 40) });
+        if (seq === 1) return mv({ name: '連環拳', intent: 'attack', baseDmg: 8, times: 3, run: (C, s) => { for (let i = 0; i < 3; i++) C.enemyAttack(s, 8); } });
+        if (seq === 2) return mv({ name: '怒吼', intent: 'buff', run: (C, s) => C.status(s, 'strength', 4) });
+        return mv({ name: '踐踏', intent: 'attack_debuff', baseDmg: 14, times: 1, run: (C, s) => { C.enemyAttack(s, 14); C.status(C.player, 'weak', 2); } });
+      },
+      onDamaged: (C, e, amt) => {
+        if (!e.enraged && e.hp <= e.maxHp / 2) { e.enraged = true; C.status(e, 'strength', 4); }
+      },
+    },
+
+    // --- 第三幕·星際商盟（賭城）---
+    bountyHunter: {
+      name: '賞金獵人', hp: [40, 48], element: 'metal',
+      chooseMove(rng, e, turn) {
+        const r = rng.random();
+        if (r < 0.5) return mv({ name: '狙擊', intent: 'attack', baseDmg: 12, times: 1, run: (C, s) => C.enemyAttack(s, 12) });
+        if (r < 0.8) return mv({ name: '標記', intent: 'attack_debuff', baseDmg: 6, times: 1, run: (C, s) => { C.status(C.player, 'vulnerable', 2); C.enemyAttack(s, 6); } });
+        return mv({ name: '換彈', intent: 'buff', run: (C, s) => { C.status(s, 'strength', 2); C.enemyBlock(s, 5); } });
+      },
+    },
+    spacePirate: {
+      name: '星系海盜', hp: [55, 65], element: 'water',
+      chooseMove(rng, e, turn) {
+        const r = rng.random();
+        if (r < 0.45) return mv({ name: '亂刃', intent: 'attack', baseDmg: 6, times: 2, run: (C, s) => { C.enemyAttack(s, 6); C.enemyAttack(s, 6); } });
+        if (r < 0.75) return mv({ name: '掠奪', intent: 'attack_defend', baseDmg: 9, times: 1, run: (C, s) => { C.enemyAttack(s, 9); C.enemyBlock(s, 4); } });
+        return mv({ name: '集火', intent: 'attack', baseDmg: 14, times: 1, run: (C, s) => C.enemyAttack(s, 14) });
+      },
+    },
+    aiSentry: {
+      name: 'AI哨兵', hp: [100, 112], element: 'metal', elite: true,
+      chooseMove(rng, e, turn) {
+        if (turn % 3 === 0) return mv({ name: '駭入', intent: 'debuff', run: (C, s) => { C.status(C.player, 'weak', 2); C.addCard('dazed', 'discard'); } });
+        if (turn % 3 === 1) return mv({ name: '光束', intent: 'attack', baseDmg: 11, times: 1, run: (C, s) => C.enemyAttack(s, 11) });
+        return mv({ name: '過載', intent: 'attack', baseDmg: 7, times: 2, run: (C, s) => { C.enemyAttack(s, 7); C.enemyAttack(s, 7); } });
+      },
+    },
+    warren: {
+      name: '沃倫', hp: [340, 340], element: 'metal', boss: true,
+      chooseMove(rng, e, turn) {
+        const seq = turn % 4;
+        if (seq === 0) return mv({ name: '資本重砲', intent: 'attack', baseDmg: 30, times: 1, run: (C, s) => C.enemyAttack(s, 30) });
+        if (seq === 1) return mv({ name: '契約束縛', intent: 'debuff', run: (C, s) => { C.status(C.player, 'weak', 2); C.status(C.player, 'vulnerable', 2); } });
+        if (seq === 2) return mv({ name: '增值', intent: 'buff', run: (C, s) => { C.status(s, 'strength', 3); C.enemyBlock(s, 10); } });
+        return mv({ name: '清算', intent: 'attack', baseDmg: 10, times: 2, run: (C, s) => { C.enemyAttack(s, 10); C.enemyAttack(s, 10); } });
+      },
+    },
+  });
+
   // 補一張 Boss 用狀態牌
   CARDS.slimed = {
     name: '黏液', type: 'status', cost: 1, rarity: 'special', target: 'none', exhaust: true,
@@ -442,27 +570,28 @@
   // 遭遇表（單幕 MVP）
   // ---------------------------------------------------------------------------
   const ENCOUNTERS = {
-    easy: [
-      ['louse', 'louse'],
-      ['jawWorm'],
-      ['fungiBeast', 'louse'],
-      ['slime'],
-    ],
-    normal: [
-      ['louse', 'louse', 'louse'],
-      ['cultist'],
-      ['jawWorm', 'fungiBeast'],
-      ['slime', 'louse'],
-      ['cultist', 'louse'],
-    ],
-    elite: [
-      ['gremlinNob'],
-      ['lagavulin'],
-      ['sentry', 'sentry', 'sentry'],
-    ],
-    boss: [
-      ['guardian'],
-      ['slimeBoss'],
+    acts: [
+      {
+        name: '歸墟', subtitle: '廢土 · 蔓哈頓深坑',
+        easy:   [['scavenger', 'scavenger'], ['gangster'], ['mechGuard'], ['scavenger', 'mechGuard']],
+        normal: [['gangster', 'scavenger'], ['mechGuard', 'scavenger'], ['gangster', 'gangster'], ['mechGuard', 'mechGuard']],
+        elite:  [['junkBrute'], ['mechGuard', 'mechGuard', 'gangster']],
+        boss:   [['zhulong']],
+      },
+      {
+        name: '武神界', subtitle: '武道 · 刑天競技場',
+        easy:   [['martialArtist'], ['martialArtist', 'martialArtist'], ['gladiator']],
+        normal: [['gladiator', 'martialArtist'], ['gladiator', 'gladiator'], ['martialArtist', 'martialArtist', 'martialArtist']],
+        elite:  [['eliteWarrior'], ['gladiator', 'gladiator', 'gladiator']],
+        boss:   [['kratos']],
+      },
+      {
+        name: '星際商盟', subtitle: '賭城 · 永夜之城',
+        easy:   [['bountyHunter'], ['spacePirate'], ['bountyHunter', 'bountyHunter']],
+        normal: [['spacePirate', 'bountyHunter'], ['bountyHunter', 'bountyHunter', 'bountyHunter'], ['spacePirate', 'spacePirate']],
+        elite:  [['aiSentry'], ['bountyHunter', 'spacePirate', 'spacePirate']],
+        boss:   [['warren']],
+      },
     ],
   };
 

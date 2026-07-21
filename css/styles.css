@@ -73,7 +73,8 @@ b { color: #fff; }
 
 /* 地圖 */
 .map-screen { text-align: center; }
-.map-header { color: var(--muted); margin-bottom: 10px; }
+.map-header { color: var(--ink); margin-bottom: 10px; }
+.map-sub { color: var(--muted); font-size: 13px; }
 .map-scroll { max-height: 62vh; overflow-y: auto; display: flex; justify-content: center;
   background: #00000025; border-radius: 12px; padding: 10px; }
 .map-canvas { position: relative; }
